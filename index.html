@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexagon Finance — Fast, Flexible &amp; Reliable Financial Solutions</title>
+<meta name="description" content="Hexagon Finance offers personal, business, emergency, salary, asset financing and school fees loans across Uganda with quick approvals and transparent rates.">
+<meta name="theme-color" content="#5B2D90">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FinancialService",
+  "name": "Hexagon Finance",
+  "description": "Licensed money lending and financial solutions for individuals and SMEs in Uganda.",
+  "areaServed": "UG"
+}
+</script>
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --purple:#5B2D90;
+  --purple-light:#7C4BB8;
+  --purple-dark:#3D1F61;
+  --orange:#FF7A00;
+  --orange-dark:#CC5C00;
+  --white:#FFFFFF;
+  --gray-50:#F7F6FA;
+  --gray-100:#ECE9F2;
+  --gray-300:#C9C5D4;
+  --gray-500:#867F95;
+  --charcoal:#1C1825;
+  --charcoal-2:#120E1A;
+  --success:#1E9E6B;
+  --danger:#D14545;
+
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+
+  --radius-lg:20px;
+  --radius:14px;
+  --radius-sm:8px;
+  --shadow-sm:0 2px 10px rgba(28,24,37,0.08);
+  --shadow-md:0 14px 36px rgba(28,24,37,0.14);
+  --container:1180px;
+  --ease:cubic-bezier(.4,0,.2,1);
+
+  --bg:var(--white);
+  --bg-alt:var(--gray-50);
+  --text:var(--charcoal);
+  --text-muted:var(--gray-500);
+  --border:var(--gray-100);
+  --nav-bg:rgba(255,255,255,0.82);
+  --card-bg:var(--white);
+  --hex-tint:rgba(91,45,144,0.05);
+}
+[data-theme="dark"]{
+  --bg:var(--charcoal-2);
+  --bg-alt:#1A1426;
+  --text:#F2EFF7;
+  --text-muted:#A89FBE;
+  --border:#2E2640;
+  --nav-bg:rgba(18,14,26,0.82);
+  --card-bg:#221B32;
+  --gray-100:#241D33;
+  --purple-light:#9D7AD1;
+  --hex-tint:rgba(157,122,209,0.07);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  transition:background var(--ease) .3s, color var(--ease) .3s;
+}
+img,svg{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+h1,h2,h3,h4{font-family:var(--font-display);margin:0;line-height:1.15;}
+p{margin:0;line-height:1.65;color:var(--text-muted);}
+ul{margin:0;padding:0;list-style:none;}
+.container{max-width:var(--container);margin:0 auto;padding:0 24px;}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:4px;}
+
+.skip-link{
+  position:absolute;left:-999px;top:0;background:var(--orange);color:#fff;padding:10px 18px;border-radius:0 0 8px 0;z-index:1000;font-weight:600;
+}
+.skip-link:focus{left:0;}
+
+/* ============ TYPE UTILITIES ============ */
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:0.72rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--orange);
+  font-weight:600;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:14px;
+}
+.eyebrow::before{
+  content:"";
+  width:8px;height:8px;
+  background:var(--orange);
+  clip-path:polygon(25% 6%,75% 6%,100% 50%,75% 94%,25% 94%,0% 50%);
+}
+.section-head{max-width:640px;margin:0 auto 48px;text-align:center;}
+.section-head h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:14px;color:var(--text);}
+.section-head p{font-size:1.05rem;}
+.mono-num{font-family:var(--font-mono);font-weight:600;letter-spacing:-0.01em;}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 28px;border-radius:999px;border:none;
+  font-weight:600;font-size:0.95rem;font-family:var(--font-body);
+  transition:transform .2s var(--ease), box-shadow .2s var(--ease), background .2s var(--ease);
+  white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{background:var(--orange);color:#fff;box-shadow:0 8px 20px rgba(255,122,0,0.32);}
+.btn-primary:hover{background:var(--orange-dark);box-shadow:0 12px 26px rgba(255,122,0,0.4);}
+.btn-secondary{background:transparent;color:var(--text);border:1.5px solid var(--border);}
+.btn-secondary:hover{border-color:var(--purple);color:var(--purple);}
+[data-theme="dark"] .btn-secondary:hover{color:var(--purple-light);}
+.btn-ghost{background:var(--white);color:var(--purple);box-shadow:var(--shadow-sm);}
+.btn-sm{padding:9px 18px;font-size:0.85rem;}
+.btn-block{width:100%;}
+
+/* ============ HEX BADGE SYSTEM (signature element) ============ */
+.hex-badge{
+  --size:60px;
+  width:var(--size);height:var(--size);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:linear-gradient(135deg,var(--purple),var(--purple-dark));
+  clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0% 50%);
+  color:#fff;
+}
+.hex-badge.orange{background:linear-gradient(135deg,var(--orange),var(--orange-dark));}
+.hex-badge svg{width:46%;height:46%;stroke:currentColor;fill:none;stroke-width:1.8;}
+
+/* ============ NAV ============ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  background:transparent;
+  transition:background .3s var(--ease), box-shadow .3s var(--ease), backdrop-filter .3s var(--ease);
+}
+.nav.scrolled{
+  background:var(--nav-bg);
+  backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--border);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:1.15rem;color:var(--text);}
+.logo-mark{
+  width:34px;height:34px;
+  background:linear-gradient(135deg,var(--purple),var(--orange));
+  clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0% 50%);
+}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:0.92rem;font-weight:500;color:var(--text-muted);transition:color .2s;position:relative;}
+.nav-links a:hover{color:var(--purple);}
+[data-theme="dark"] .nav-links a:hover{color:var(--purple-light);}
+.nav-actions{display:flex;align-items:center;gap:14px;}
+.theme-toggle{
+  width:38px;height:38px;border-radius:50%;border:1.5px solid var(--border);background:var(--card-bg);
+  display:flex;align-items:center;justify-content:center;color:var(--text);transition:border-color .2s;
+}
+.theme-toggle:hover{border-color:var(--orange);}
+.theme-toggle svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;}
+.icon-moon{display:none;}
+[data-theme="dark"] .icon-sun{display:none;}
+[data-theme="dark"] .icon-moon{display:block;}
+.hamburger{display:none;width:38px;height:38px;border:none;background:none;color:var(--text);align-items:center;justify-content:center;}
+.hamburger svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;}
+
+@media (max-width:880px){
+  .nav-links{
+    position:fixed;top:68px;left:0;right:0;
+    background:var(--bg);
+    flex-direction:column;align-items:flex-start;gap:0;
+    padding:8px 24px 18px;
+    border-bottom:1px solid var(--border);
+    transform:translateY(-12px);opacity:0;visibility:hidden;
+    transition:opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
+  }
+  .nav-links.open{transform:translateY(0);opacity:1;visibility:visible;}
+  .nav-links a{padding:12px 0;width:100%;border-bottom:1px solid var(--border);}
+  .nav-links .btn{margin-top:12px;width:100%;}
+  .hamburger{display:flex;}
+}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;
+  padding:148px 0 100px;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 0%, rgba(91,45,144,0.10), transparent 60%),
+    var(--bg);
+}
+.hero-inner{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;position:relative;z-index:2;}
+.hero h1{font-size:clamp(2.3rem,5vw,3.4rem);letter-spacing:-0.01em;margin-bottom:20px;}
+.hero h1 .accent{color:var(--orange);}
+.hero-sub{font-size:1.08rem;max-width:480px;margin-bottom:32px;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px;}
+.hero-trust{display:flex;gap:28px;flex-wrap:wrap;}
+.hero-trust div{display:flex;flex-direction:column;}
+.hero-trust .num{font-family:var(--font-mono);font-weight:700;font-size:1.3rem;color:var(--purple);}
+[data-theme="dark"] .hero-trust .num{color:var(--purple-light);}
+.hero-trust .label{font-size:0.78rem;color:var(--text-muted);margin-top:2px;}
+
+.hero-visual{position:relative;height:440px;display:flex;align-items:center;justify-content:center;}
+.hex-frame{
+  width:300px;height:300px;
+  clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0% 50%);
+  background:linear-gradient(160deg,var(--purple-light),var(--purple) 55%,var(--purple-dark));
+  display:flex;align-items:flex-end;justify-content:center;
+  box-shadow:var(--shadow-md);
+  position:relative;
+  z-index:2;
+}
+.hex-frame svg{width:72%;}
+.float-card{
+  position:absolute;
+  background:var(--card-bg);
+  border-radius:var(--radius-sm);
+  box-shadow:var(--shadow-md);
+  padding:12px 16px;
+  display:flex;align-items:center;gap:10px;
+  z-index:3;
+  font-size:0.82rem;
+  font-weight:600;
+  animation:floaty 5s ease-in-out infinite;
+}
+.float-card .dot{width:30px;height:30px;border-radius:50%;background:rgba(30,158,107,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.float-card .dot svg{width:16px;height:16px;stroke:var(--success);fill:none;stroke-width:2.4;}
+.float-card.card-approved{top:8%;left:-4%;animation-delay:0s;}
+.float-card.card-amount{bottom:10%;right:-6%;animation-delay:0.6s;}
+.float-card .meta{display:flex;flex-direction:column;}
+.float-card .meta .t1{color:var(--text);font-size:0.82rem;}
+.float-card .meta .t2{color:var(--text-muted);font-size:0.7rem;font-weight:500;font-family:var(--font-mono);}
+
+.deco-hex{position:absolute;opacity:0.5;z-index:1;}
+.deco-hex svg{stroke:var(--purple-light);fill:none;stroke-width:1.4;}
+.deco-hex.d1{top:6%;right:6%;width:80px;animation:spinslow 30s linear infinite;}
+.deco-hex.d2{bottom:4%;left:2%;width:54px;opacity:0.35;animation:floaty 7s ease-in-out infinite;}
+.deco-hex.d3{top:46%;left:48%;width:36px;opacity:0.25;}
+.deco-hex.d3 svg{stroke:var(--orange);}
+
+@keyframes floaty{0%,100%{transform:translateY(0px);}50%{transform:translateY(-12px);}}
+@keyframes spinslow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+@media (max-width:980px){
+  .hero-inner{grid-template-columns:1fr;text-align:center;}
+  .hero-sub{margin-inline:auto;}
+  .hero-ctas{justify-content:center;}
+  .hero-trust{justify-content:center;}
+  .hero-visual{height:340px;margin-top:20px;}
+  .hex-frame{width:230px;height:230px;}
+}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s var(--ease), transform .6s var(--ease);}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+
+/* ============ ABOUT ============ */
+.about{padding:96px 0;background:var(--bg-alt);position:relative;overflow:hidden;}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.about-copy h2{font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:18px;}
+.about-copy p{margin-bottom:16px;font-size:1.02rem;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.stat-tile{
+  background:var(--card-bg);border-radius:var(--radius);padding:24px 20px;
+  box-shadow:var(--shadow-sm);
+  display:flex;flex-direction:column;gap:14px;
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.stat-tile:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+.stat-tile .hex-badge{--size:46px;}
+.stat-tile .stat-num{font-family:var(--font-mono);font-weight:700;font-size:1.5rem;color:var(--text);}
+.stat-tile .stat-label{font-size:0.82rem;color:var(--text-muted);}
+@media (max-width:880px){.about-inner{grid-template-columns:1fr;}}
+
+/* ============ PRODUCTS ============ */
+.products{padding:96px 0;}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.product-card{
+  background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:30px 26px;display:flex;flex-direction:column;gap:16px;
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s;
+}
+.product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:transparent;}
+.product-card h3{font-size:1.15rem;}
+.product-card p{font-size:0.92rem;flex-grow:1;}
+.product-card .learn{font-size:0.86rem;font-weight:600;color:var(--orange);display:inline-flex;align-items:center;gap:6px;}
+.product-card .learn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.4;transition:transform .2s;}
+.product-card:hover .learn svg{transform:translateX(4px);}
+@media (max-width:980px){.product-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:620px){.product-grid{grid-template-columns:1fr;}}
+
+/* ============ WHY CHOOSE ============ */
+.why{padding:96px 0;background:var(--bg-alt);}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.why-item{display:flex;gap:16px;align-items:flex-start;padding:8px;}
+.why-item .hex-badge{--size:52px;}
+.why-item h4{font-size:1rem;margin-bottom:6px;}
+.why-item p{font-size:0.88rem;}
+@media (max-width:880px){.why-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:560px){.why-grid{grid-template-columns:1fr;}}
+
+/* ============ CALCULATOR ============ */
+.calc{padding:96px 0;position:relative;}
+.calc-card{
+  max-width:760px;margin:0 auto;
+  background:linear-gradient(160deg, rgba(91,45,144,0.08), rgba(255,122,0,0.05));
+  border:1px solid var(--border);
+  backdrop-filter:blur(10px);
+  border-radius:var(--radius-lg);
+  padding:44px;
+  box-shadow:var(--shadow-md);
+}
+.calc-row{margin-bottom:26px;}
+.calc-row label{display:flex;justify-content:space-between;font-size:0.88rem;font-weight:600;margin-bottom:10px;}
+.calc-row label .val{font-family:var(--font-mono);color:var(--orange);}
+input[type="range"]{
+  width:100%;height:6px;border-radius:6px;background:var(--border);appearance:none;outline:none;
+}
+input[type="range"]::-webkit-slider-thumb{
+  appearance:none;width:22px;height:22px;border-radius:50%;background:var(--purple);
+  border:3px solid var(--white);box-shadow:0 2px 6px rgba(0,0,0,0.25);cursor:pointer;
+}
+input[type="range"]::-moz-range-thumb{
+  width:22px;height:22px;border-radius:50%;background:var(--purple);border:3px solid var(--white);cursor:pointer;
+}
+select.calc-select{
+  width:100%;padding:13px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border);
+  background:var(--card-bg);color:var(--text);font-family:inherit;font-size:0.95rem;
+}
+.calc-results{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;}
+.calc-result{background:var(--card-bg);border-radius:var(--radius);padding:20px;text-align:center;box-shadow:var(--shadow-sm);}
+.calc-result .r-label{font-size:0.78rem;color:var(--text-muted);margin-bottom:8px;}
+.calc-result .r-val{font-family:var(--font-mono);font-weight:700;font-size:1.4rem;color:var(--purple);}
+[data-theme="dark"] .calc-result .r-val{color:var(--purple-light);}
+.calc-fine{font-size:0.76rem;color:var(--text-muted);margin-top:22px;text-align:center;}
+@media (max-width:600px){.calc-card{padding:28px 22px;}.calc-results{grid-template-columns:1fr;}}
+
+/* ============ HOW IT WORKS ============ */
+.how{padding:96px 0;background:var(--bg-alt);}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative;}
+.steps::before{
+  content:"";position:absolute;top:30px;left:8%;right:8%;height:2px;
+  background:repeating-linear-gradient(90deg,var(--border) 0 10px,transparent 10px 18px);
+  z-index:0;
+}
+.step{position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;}
+.step-num{
+  width:60px;height:60px;border-radius:50%;background:var(--card-bg);border:2px solid var(--purple);
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;color:var(--purple);
+  box-shadow:var(--shadow-sm);
+}
+[data-theme="dark"] .step-num{color:var(--purple-light);border-color:var(--purple-light);}
+.step h4{font-size:1rem;}
+.step p{font-size:0.85rem;}
+@media (max-width:880px){
+  .steps{grid-template-columns:1fr;gap:36px;}
+  .steps::before{display:none;}
+}
+
+/* ============ TESTIMONIALS ============ */
+.testi{padding:96px 0;}
+.testi-wrap{max-width:680px;margin:0 auto;position:relative;}
+.testi-track{overflow:hidden;border-radius:var(--radius-lg);}
+.testi-slides{display:flex;transition:transform .45s var(--ease);}
+.testi-slide{min-width:100%;padding:8px;}
+.testi-card{
+  background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:36px;text-align:center;
+}
+.testi-quote{font-size:1.08rem;color:var(--text);margin-bottom:22px;font-style:italic;}
+.testi-avatar{
+  width:54px;height:54px;border-radius:50%;margin:0 auto 12px;
+  background:linear-gradient(135deg,var(--purple),var(--orange));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-family:var(--font-display);
+}
+.testi-name{font-weight:700;font-size:0.95rem;}
+.testi-role{font-size:0.82rem;color:var(--text-muted);}
+.testi-controls{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:24px;}
+.testi-arrow{
+  width:38px;height:38px;border-radius:50%;border:1.5px solid var(--border);background:var(--card-bg);
+  display:flex;align-items:center;justify-content:center;color:var(--text);
+}
+.testi-arrow svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;}
+.testi-dots{display:flex;gap:8px;}
+.testi-dot{width:8px;height:8px;border-radius:50%;background:var(--border);border:none;padding:0;}
+.testi-dot.active{background:var(--orange);width:22px;border-radius:5px;transition:width .25s,background .25s;}
+
+/* ============ STATS ============ */
+.stats{padding:90px 0;background:linear-gradient(135deg,var(--purple),var(--purple-dark));position:relative;overflow:hidden;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative;z-index:1;}
+.stat-block{text-align:center;color:#fff;}
+.stat-block .count{font-family:var(--font-mono);font-weight:700;font-size:clamp(1.8rem,4vw,2.6rem);}
+.stat-block .label{font-size:0.85rem;opacity:0.85;margin-top:8px;}
+@media (max-width:880px){.stats-grid{grid-template-columns:1fr 1fr;row-gap:36px;}}
+
+/* ============ TRUST BAND ============ */
+.trust-band{padding:48px 0;background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.trust-inner{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;}
+.trust-item{flex:1;min-width:220px;display:flex;gap:12px;}
+.trust-item svg{width:22px;height:22px;stroke:var(--orange);fill:none;stroke-width:2;flex-shrink:0;margin-top:2px;}
+.trust-item h5{font-size:0.92rem;margin-bottom:4px;}
+.trust-item p{font-size:0.82rem;}
+
+/* ============ FAQ ============ */
+.faq{padding:96px 0;}
+.faq-list{max-width:720px;margin:0 auto;}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-q{
+  width:100%;display:flex;justify-content:space-between;align-items:center;
+  padding:22px 4px;background:none;border:none;text-align:left;font-size:1rem;font-weight:600;color:var(--text);
+}
+.faq-q svg{width:18px;height:18px;stroke:var(--text-muted);fill:none;stroke-width:2.2;transition:transform .25s var(--ease);flex-shrink:0;margin-left:16px;}
+.faq-item.open .faq-q svg{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s var(--ease);}
+.faq-a p{padding:0 4px 22px;font-size:0.92rem;}
+
+/* ============ CONTACT ============ */
+.contact{padding:96px 0;background:var(--bg-alt);}
+.contact-inner{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;}
+.contact-form{background:var(--card-bg);border-radius:var(--radius-lg);padding:36px;box-shadow:var(--shadow-sm);}
+.form-row{margin-bottom:18px;}
+.form-row label{display:block;font-size:0.84rem;font-weight:600;margin-bottom:8px;}
+.form-row input,.form-row select,.form-row textarea{
+  width:100%;padding:13px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);
+  background:var(--bg);color:var(--text);font-family:inherit;font-size:0.92rem;resize:vertical;
+}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--purple);}
+.form-grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-msg{font-size:0.85rem;margin-top:14px;display:none;padding:12px 14px;border-radius:var(--radius-sm);}
+.form-msg.show{display:block;}
+.form-msg.success{background:rgba(30,158,107,0.12);color:var(--success);}
+.form-msg.error{background:rgba(209,69,69,0.1);color:var(--danger);}
+.contact-info{display:flex;flex-direction:column;gap:20px;}
+.info-card{background:var(--card-bg);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);display:flex;gap:14px;align-items:flex-start;}
+.info-card .hex-badge{--size:44px;}
+.info-card h5{font-size:0.92rem;margin-bottom:4px;}
+.info-card p{font-size:0.86rem;}
+.map-embed{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);height:200px;}
+.map-embed iframe{width:100%;height:100%;border:0;}
+@media (max-width:880px){.contact-inner{grid-template-columns:1fr;}.form-grid2{grid-template-columns:1fr;}}
+
+/* ============ FOOTER ============ */
+footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
+[data-theme="dark"] footer{background:#0E0A16;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 0.8fr 0.8fr 1.1fr;gap:40px;margin-bottom:48px;}
+.footer-brand .logo{color:#fff;margin-bottom:14px;}
+.footer-brand p{font-size:0.88rem;color:#A89FBE;max-width:280px;margin-bottom:18px;}
+.social-row{display:flex;gap:10px;}
+.social-row a{width:36px;height:36px;border-radius:50%;border:1.5px solid #3A3050;display:flex;align-items:center;justify-content:center;transition:border-color .2s,background .2s;}
+.social-row a:hover{border-color:var(--orange);background:rgba(255,122,0,0.1);}
+.social-row svg{width:16px;height:16px;stroke:#D8D3E2;fill:none;stroke-width:1.8;}
+.footer-col h6{color:#fff;font-size:0.85rem;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:18px;font-family:var(--font-display);}
+.footer-col ul li{margin-bottom:11px;}
+.footer-col a{font-size:0.88rem;color:#A89FBE;transition:color .2s;}
+.footer-col a:hover{color:var(--orange);}
+.newsletter-form{display:flex;gap:8px;margin-top:6px;}
+.newsletter-form input{flex:1;padding:11px 14px;border-radius:var(--radius-sm);border:1.5px solid #3A3050;background:transparent;color:#fff;font-size:0.85rem;}
+.newsletter-form button{padding:11px 16px;border-radius:var(--radius-sm);border:none;background:var(--orange);color:#fff;font-weight:600;font-size:0.85rem;}
+.footer-bottom{border-top:1px solid #2E2640;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.78rem;color:#736B89;}
+.footer-bottom a{color:#736B89;}
+.footer-bottom a:hover{color:var(--orange);}
+.disclaimer{font-size:0.74rem;color:#5C5470;text-align:center;margin-top:18px;}
+@media (max-width:880px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:560px){.footer-grid{grid-template-columns:1fr;}}
+
+/* ============ FLOATING ACTIONS ============ */
+.floating-actions{position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:12px;z-index:400;}
+.fab{
+  width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow-md);color:#fff;transition:transform .2s var(--ease);position:relative;
+}
+.fab:hover{transform:scale(1.08);}
+.fab-whatsapp{background:#25D366;}
+.fab-call{background:var(--purple);}
+.fab svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;}
+.fab-ring{position:absolute;inset:-5px;border-radius:50%;border:1.5px solid currentColor;opacity:0.35;clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0% 50%);pointer-events:none;}
+.back-top{
+  width:44px;height:44px;border-radius:50%;background:var(--card-bg);color:var(--text);border:1.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-sm);
+  opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,visibility .25s,transform .25s;
+}
+.back-top.show{opacity:1;visibility:visible;transform:translateY(0);}
+.back-top svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important;transition:none !important;}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#home" class="logo"><span class="logo-mark" aria-hidden="true"></span>Hexagon Finance</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#products">Loan Products</a></li>
+      <li><a href="#calculator">Calculator</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact" class="btn btn-primary btn-sm">Apply Now</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="deco-hex d1" aria-hidden="true"><svg viewBox="0 0 100 86.6"><polygon points="25,0 75,0 100,43.3 75,86.6 25,86.6 0,43.3"/></svg></div>
+  <div class="deco-hex d2" aria-hidden="true"><svg viewBox="0 0 100 86.6"><polygon points="25,0 75,0 100,43.3 75,86.6 25,86.6 0,43.3"/></svg></div>
+  <div class="deco-hex d3" aria-hidden="true"><svg viewBox="0 0 100 86.6"><polygon points="25,0 75,0 100,43.3 75,86.6 25,86.6 0,43.3"/></svg></div>
+  <div class="container hero-inner">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">Licensed Lending Partner · Uganda</span>
+      <h1>Fast, Flexible &amp; <span class="accent">Reliable</span> Financial Solutions</h1>
+      <p class="hero-sub">Get the financial support you need with quick approvals, competitive rates, and personalized lending solutions — built for individuals, salary earners, and businesses across Uganda.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary">Apply for a Loan</a>
+        <a href="#contact" class="btn btn-secondary">Talk to an Advisor</a>
+      </div>
+      <div class="hero-trust">
+        <div><span class="num">8+ yrs</span><span class="label">In operation</span></div>
+        <div><span class="num">12,400+</span><span class="label">Clients served</span></div>
+        <div><span class="num">24-Hr</span><span class="label">Avg. approval</span></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hex-frame">
+        <svg viewBox="0 0 120 150" aria-hidden="true">
+          <circle cx="60" cy="44" r="22" fill="#fff" opacity="0.95"/>
+          <path d="M20 150 Q20 96 60 96 Q100 96 100 150 Z" fill="#fff" opacity="0.95"/>
+          <rect x="68" y="78" width="20" height="34" rx="4" fill="var(--orange)"/>
+          <circle cx="78" cy="86" r="2" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="float-card card-approved">
+        <span class="dot"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
+        <span class="meta"><span class="t1">Loan Approved</span><span class="t2">Ref #HF-29841</span></span>
+      </div>
+      <div class="float-card card-amount">
+        <span class="dot" style="background:rgba(91,45,144,0.12);"><svg viewBox="0 0 24 24" style="stroke:var(--purple)"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
+        <span class="meta"><span class="t1">UGX 2,000,000</span><span class="t2">Disbursed today</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="container about-inner">
+    <div class="about-copy reveal">
+      <span class="eyebrow">Who we are</span>
+      <h2>Your Trusted Financial Partner</h2>
+      <p>Hexagon Finance was founded to make borrowing simple, transparent, and fair. We work with salary earners, entrepreneurs, and small businesses across Uganda who need fast, honest access to credit — without confusing terms or hidden charges.</p>
+      <p>Every product we offer is built around three principles: clear pricing, realistic repayment plans, and decisions you can act on the same day you apply.</p>
+    </div>
+    <div class="stat-grid reveal">
+      <div class="stat-tile">
+        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 3M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg></span>
+        <span class="stat-num">8+ Years</span>
+        <span class="stat-label">In operation</span>
+      </div>
+      <div class="stat-tile">
+        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+        <span class="stat-num">Licensed</span>
+        <span class="stat-label">Money lender</span>
+      </div>
+      <div class="stat-tile">
+        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></span>
+        <span class="stat-num">12,400+</span>
+        <span class="stat-label">Happy clients</span>
+      </div>
+      <div class="stat-tile">
+        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+        <span class="stat-num">24-Hr</span>
+        <span class="stat-label">Loan processing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section class="products" id="products">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Loan products</span>
+      <h2>Financing built for every stage of life</h2>
+      <p>Six straightforward products, each priced and structured for the way real people and businesses actually borrow.</p>
+    </div>
+    <div class="product-grid">
+      <div class="product-card reveal">
+        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 010-4h14v4M3 5v14a2 2 0 002 2h16v-5M18 12a2 2 0 100 4 2 2 0 000-4z"/></svg></span>
+        <h3>Personal Loans</h3>
+        <p>Cover rent, medical bills, or personal projects with flexible amounts and repayment terms up to 36 months.</p>
+        <a href="#contact" class="learn">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="product-card reveal">
+        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M3 7h18v13H3zM8 7V4a2 2 0 012-2h4a2 2 0 012 2v3M3 12h18"/></svg></span>
+        <h3>Business Loans</h3>
+        <p>Working capital and growth financing for SMEs, sized to your cash flow with no collateral surprises.</p>
+        <a href="#contact" class="learn">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="product-card reveal">
+        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.86L1.8 18a1.5 1.5 0 001.3 2.25h17.8a1.5 1.5 0 001.3-2.25L13.7 3.86a1.5 1.5 0 00-2.6 0z"/></svg></span>
+        <h3>Emergency Loans</h3>
+        <p>Same-day support for unexpected expenses, with a streamlined application and minimal documentation.</p>
+        <a href="#contact" class="learn">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="product-card reveal">
+        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
+        <h3>Salary Loans</h3>
+        <p>Quick top-ups for salaried employees, repaid through manageable monthly deductions.</p>
+        <a href="#contact" class="learn">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="product-card reveal">
+        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M3 13h18M5 13V8l3-4h8l3 4v5M5 13v6a1 1 0 001 1h2a1 1 0 001-1v-2h6v2a1 1 0 001 1h2a1 1 0 001-1v-6"/></svg></span>
+        <h3>Asset Financing</h3>
+        <p>Finance vehicles, equipment, or machinery with the asset itself serving as security.</p>
+        <a href="#contact" class="learn">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="product-card reveal">
+        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5 10-5zM6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></span>
+        <h3>School Fees Loans</h3>
+        <p>Spread tuition costs across the term so fees deadlines never get in the way of education.</p>
+        <a href="#contact" class="learn">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY CHOOSE US ============ -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why Hexagon Finance</span>
+      <h2>Lending that respects your time and your money</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+        <div><h4>Quick Approval</h4><p>Most decisions are made within 24 hours of a complete application.</p></div>
+      </div>
+      <div class="why-item reveal">
+        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M3 10h18M7 3v4M17 3v4M5 7h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z"/></svg></span>
+        <div><h4>Flexible Repayment</h4><p>Choose a schedule that matches your income cycle, not the other way around.</p></div>
+      </div>
+      <div class="why-item reveal">
+        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M19 5L5 19M9 6a3 3 0 11-6 0 3 3 0 016 0zM21 18a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
+        <div><h4>Competitive Rates</h4><p>Transparent, clearly disclosed pricing with no hidden charges.</p></div>
+      </div>
+      <div class="why-item reveal">
+        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg></span>
+        <div><h4>Secure Transactions</h4><p>Bank-grade encryption protects every application and disbursement.</p></div>
+      </div>
+      <div class="why-item reveal">
+        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M3 8a4 4 0 014-4h3M3 16a4 4 0 004 4h3M21 8a4 4 0 00-4-4h-3M21 16a4 4 0 01-4 4h-3M12 8v8M8 12h8"/></svg></span>
+        <div><h4>Professional Support</h4><p>A dedicated advisor is available throughout your loan term.</p></div>
+      </div>
+      <div class="why-item reveal">
+        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M12 15a4 4 0 100-8 4 4 0 000 8zM6 21l1.5-5M18 21l-1.5-5"/></svg></span>
+        <div><h4>Trusted by Thousands</h4><p>Over a decade of combined experience serving Ugandan borrowers.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALCULATOR ============ -->
+<section class="calc" id="calculator">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Plan ahead</span>
+      <h2>Loan Repayment Calculator</h2>
+      <p>Get an instant, illustrative estimate of your monthly installment before you apply.</p>
+    </div>
+    <div class="calc-card reveal">
+      <div class="calc-row">
+        <label for="loanAmount">Loan Amount <span class="val mono-num" id="amountVal">UGX 2,000,000</span></label>
+        <input type="range" id="loanAmount" min="100000" max="20000000" step="50000" value="2000000">
+      </div>
+      <div class="calc-row">
+        <label for="loanPeriod">Loan Period</label>
+        <select id="loanPeriod" class="calc-select">
+          <option value="3">3 months</option>
+          <option value="6">6 months</option>
+          <option value="12" selected>12 months</option>
+          <option value="24">24 months</option>
+          <option value="36">36 months</option>
+        </select>
+      </div>
+      <div class="calc-results">
+        <div class="calc-result">
+          <div class="r-label">Estimated Monthly Installment</div>
+          <div class="r-val mono-num" id="monthlyVal">UGX 0</div>
+        </div>
+        <div class="calc-result">
+          <div class="r-label">Total Repayment</div>
+          <div class="r-val mono-num" id="totalVal">UGX 0</div>
+        </div>
+      </div>
+      <p class="calc-fine">Based on an indicative flat rate of 3% per month. Actual rates depend on the loan product and credit assessment. This calculator is for illustration only and is not a loan offer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="how" id="how">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The process</span>
+      <h2>How It Works</h2>
+      <p>From application to funds in your account — four steps, most completed within a day.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <span class="step-num">01</span>
+        <h4>Apply Online</h4>
+        <p>Fill in a short form with your details and the loan product you need.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">02</span>
+        <h4>Submit Documents</h4>
+        <p>Upload ID and income proof — most applicants need just two documents.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">03</span>
+        <h4>Get Approval</h4>
+        <p>Our team reviews and responds, typically within 24 hours.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">04</span>
+        <h4>Receive Funds</h4>
+        <p>Approved funds are disbursed directly to your bank or mobile money account.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testi" id="testimonials">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Client stories</span>
+      <h2>What our clients say</h2>
+    </div>
+    <div class="testi-wrap reveal">
+      <div class="testi-track">
+        <div class="testi-slides" id="testiSlides">
+          <div class="testi-slide">
+            <div class="testi-card">
+              <p class="testi-quote">"Hexagon Finance approved my business loan in a day. The repayment plan actually matched my shop's monthly income — no stress."</p>
+              <div class="testi-avatar">PN</div>
+              <div class="testi-name">Patricia N.</div>
+              <div class="testi-role">Boutique Owner, Kampala</div>
+            </div>
+          </div>
+          <div class="testi-slide">
+            <div class="testi-card">
+              <p class="testi-quote">"I needed an emergency loan for a medical bill. The process was quick and the advisor explained every charge upfront."</p>
+              <div class="testi-avatar">MK</div>
+              <div class="testi-name">Moses K.</div>
+              <div class="testi-role">Civil Servant, Mukono</div>
+            </div>
+          </div>
+          <div class="testi-slide">
+            <div class="testi-card">
+              <p class="testi-quote">"The school fees loan meant my children started term on time. Clear terms, no hidden fees — exactly what was promised."</p>
+              <div class="testi-avatar">GA</div>
+              <div class="testi-name">Grace A.</div>
+              <div class="testi-role">Restaurant Owner, Entebbe</div>
+            </div>
+          </div>
+          <div class="testi-slide">
+            <div class="testi-card">
+              <p class="testi-quote">"Asset financing for my work vehicle was straightforward. Their team walked me through the whole repayment structure."</p>
+              <div class="testi-avatar">DO</div>
+              <div class="testi-name">Daniel O.</div>
+              <div class="testi-role">IT Consultant, Kampala</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-controls">
+        <button class="testi-arrow" id="testiPrev" aria-label="Previous testimonial"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div class="testi-dots" id="testiDots"></div>
+        <button class="testi-arrow" id="testiNext" aria-label="Next testimonial"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats" id="stats">
+  <div class="deco-hex d1" aria-hidden="true" style="opacity:0.12;"><svg viewBox="0 0 100 86.6" style="stroke:#fff;"><polygon points="25,0 75,0 100,43.3 75,86.6 25,86.6 0,43.3"/></svg></div>
+  <div class="container stats-grid">
+    <div class="stat-block reveal">
+      <div class="count" data-target="10000" data-suffix="+">0</div>
+      <div class="label">Loans Processed</div>
+    </div>
+    <div class="stat-block reveal">
+      <div class="count" data-target="50" data-suffix="B+" data-prefix="UGX ">0</div>
+      <div class="label">Disbursed</div>
+    </div>
+    <div class="stat-block reveal">
+      <div class="count" data-target="98" data-suffix="%">0</div>
+      <div class="label">Customer Satisfaction</div>
+    </div>
+    <div class="stat-block reveal">
+      <div class="count" data-target="24" data-suffix="-Hr">0</div>
+      <div class="label">Approval Process</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST & COMPLIANCE ============ -->
+<section class="trust-band">
+  <div class="container trust-inner">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>
+      <div><h5>Licensed &amp; Regulated</h5><p>Operating under Uganda's Tier 4 Microfinance Institutions and Money Lenders Act. Licence No. ML-0000 (sample).</p></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <div><h5>Transparent Pricing</h5><p>All interest rates and fees are disclosed in writing before you sign any agreement.</p></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-1a4 4 0 00-3-3.87"/></svg>
+      <div><h5>Responsible Lending</h5><p>We assess affordability before approval and never lend beyond a manageable repayment capacity.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Questions</span>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item open">
+        <button class="faq-q" aria-expanded="true">How do I qualify?<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a"><p>You need to be 18 or older, a Ugandan resident, and able to show a regular source of income — whether salaried, business, or other verifiable income.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What documents are required?<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a"><p>A valid national ID and proof of income (payslip, bank statement, or business records) are required for most loan products. Asset financing may require additional documentation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How long does approval take?<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a"><p>Most complete applications are reviewed within 24 hours. Complex business or asset financing applications may take slightly longer.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can I repay early?</button>
+        <div class="faq-a"><p>Yes. Early repayment is allowed on all products, and we'll confirm any applicable settlement figure in writing before you pay it off.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What happens if I miss a payment?<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a"><p>Contact your advisor as soon as possible — we'll work with you on a revised plan. Late fees may apply as disclosed in your loan agreement.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Get in touch</span>
+      <h2>Start Your Application</h2>
+      <p>Send us your details and an advisor will reach out within one business day.</p>
+    </div>
+    <div class="contact-inner">
+      <form class="contact-form reveal" id="contactForm" novalidate>
+        <div class="form-grid2">
+          <div class="form-row">
+            <label for="fname">Full Name</label>
+            <input type="text" id="fname" name="fname" required>
+          </div>
+          <div class="form-row">
+            <label for="fphone">Phone Number</label>
+            <input type="tel" id="fphone" name="fphone" required>
+          </div>
+        </div>
+        <div class="form-grid2">
+          <div class="form-row">
+            <label for="femail">Email Address</label>
+            <input type="email" id="femail" name="femail" required>
+          </div>
+          <div class="form-row">
+            <label for="fproduct">Loan Product</label>
+            <select id="fproduct" name="fproduct">
+              <option>Personal Loan</option>
+              <option>Business Loan</option>
+              <option>Emergency Loan</option>
+              <option>Salary Loan</option>
+              <option>Asset Financing</option>
+              <option>School Fees Loan</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="fmessage">Message</label>
+          <textarea id="fmessage" name="fmessage" rows="4" placeholder="Tell us a bit about what you need"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+      <div class="contact-info reveal">
+        <div class="info-card">
+          <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.69 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0122 16.92z"/></svg></span>
+          <div><h5>Phone</h5><p>+256 700 000 000</p></div>
+        </div>
+        <div class="info-card">
+          <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM22 6l-10 7L2 6"/></svg></span>
+          <div><h5>Email</h5><p>hello@hexagonfinance.ug</p></div>
+        </div>
+        <div class="info-card">
+          <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div><h5>Office</h5><p>Plot 14, Kampala Road, Kampala, Uganda</p></div>
+        </div>
+        <div class="map-embed">
+          <iframe title="Hexagon Finance location map" loading="lazy" src="https://www.google.com/maps?q=Kampala%20Road%2C%20Kampala%2C%20Uganda&output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo"><span class="logo-mark" aria-hidden="true"></span>Hexagon Finance</a>
+        <p>Accessible, transparent financial solutions for individuals and businesses across Uganda.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M4 4l16 16M20 4L4 20"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 13v4"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h6>Quick Links</h6>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#calculator">Calculator</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Loan Products</h6>
+        <ul>
+          <li><a href="#products">Personal Loans</a></li>
+          <li><a href="#products">Business Loans</a></li>
+          <li><a href="#products">Emergency Loans</a></li>
+          <li><a href="#products">School Fees Loans</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Stay Updated</h6>
+        <p style="font-size:0.85rem;margin-bottom:10px;">Get rate updates and financial tips in your inbox.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" placeholder="Your email" required aria-label="Email for newsletter">
+          <button type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Hexagon Finance. All rights reserved.</span>
+      <span><a href="#">Privacy Policy</a> · <a href="#">Terms &amp; Conditions</a> · <a href="#">Complaints Process</a></span>
+    </div>
+    <p class="disclaimer">Statistics, testimonials, and regulatory details on this page are sample content for demonstration purposes and should be replaced with verified figures before launch.</p>
+  </div>
+</footer>
+
+<!-- ============ FLOATING ACTIONS ============ -->
+<div class="floating-actions">
+  <button class="back-top" id="backTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+  <a class="fab fab-whatsapp" href="https://wa.me/256700000000" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
+    <span class="fab-ring" aria-hidden="true"></span>
+    <svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M12 2a10 10 0 00-8.5 15.3L2 22l4.9-1.3A10 10 0 1012 2zm5.6 14.3c-.2.6-1.4 1.2-1.9 1.3-.5.1-1.1.2-3.2-.7-2.7-1.1-4.4-3.8-4.5-4-.1-.2-1-1.3-1-2.5s.6-1.8.8-2c.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .5.4.2.5.7 1.7.7 1.8.1.2.1.3 0 .5-.1.2-.2.3-.3.5l-.4.4c-.1.1-.3.3-.1.6.2.4 1 1.4 2.1 2.3 1.4 1.2 1.6 1.2 1.9 1.1.3-.1.7-.5 1-.8.2-.2.4-.2.7-.1.3.1 1.6.8 1.8.9.2.1.4.2.4.4.1.2.1.6-.1 1.2z"/></svg>
+  </a>
+  <a class="fab fab-call" href="tel:+256700000000" aria-label="Call Hexagon Finance">
+    <span class="fab-ring" aria-hidden="true"></span>
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.69 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0122 16.92z"/></svg>
+  </a>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---- Nav scroll state ---- */
+  var nav = document.getElementById('nav');
+  var backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY;
+    nav.classList.toggle('scrolled', y > 30);
+    backTop.classList.toggle('show', y > 600);
+  });
+  backTop.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  /* ---- Mobile nav ---- */
+  var hamburger = document.getElementById('hamburger');
+  var navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', function(){
+    var open = navLinks.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      navLinks.classList.remove('open');
+      hamburger.setAttribute('aria-expanded','false');
+    });
+  });
+
+  /* ---- Theme toggle ---- */
+  var themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', function(){
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  });
+
+  /* ---- Scroll reveal ---- */
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+  if(reduceMotion){
+    revealEls.forEach(function(el){ el.classList.add('in-view'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15});
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---- Animated counters ---- */
+  var counters = document.querySelectorAll('.count');
+  var counted = false;
+  function animateCounters(){
+    if(counted) return;
+    counted = true;
+    counters.forEach(function(el){
+      var target = parseInt(el.getAttribute('data-target'), 10);
+      var prefix = el.getAttribute('data-prefix') || '';
+      var suffix = el.getAttribute('data-suffix') || '';
+      var start = null;
+      var duration = 1400;
+      function step(ts){
+        if(!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var val = Math.floor(progress * target);
+        el.textContent = prefix + val.toLocaleString() + suffix;
+        if(progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  var statsSection = document.getElementById('stats');
+  if(statsSection){
+    var statsIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          animateCounters();
+          statsIO.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.3});
+    statsIO.observe(statsSection);
+  }
+
+  /* ---- Loan calculator ---- */
+  var amountInput = document.getElementById('loanAmount');
+  var amountVal = document.getElementById('amountVal');
+  var periodSelect = document.getElementById('loanPeriod');
+  var monthlyVal = document.getElementById('monthlyVal');
+  var totalVal = document.getElementById('totalVal');
+  var FLAT_RATE = 0.03;
+
+  function formatUGX(n){
+    return 'UGX ' + Math.round(n).toLocaleString('en-UG');
+  }
+  function calc(){
+    var principal = parseInt(amountInput.value, 10);
+    var months = parseInt(periodSelect.value, 10);
+    amountVal.textContent = formatUGX(principal);
+    var total = principal + (principal * FLAT_RATE * months);
+    var monthly = total / months;
+    monthlyVal.textContent = formatUGX(monthly);
+    totalVal.textContent = formatUGX(total);
+  }
+  amountInput.addEventListener('input', calc);
+  periodSelect.addEventListener('change', calc);
+  calc();
+
+  /* ---- FAQ accordion ---- */
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var btn = item.querySelector('.faq-q');
+    var panel = item.querySelector('.faq-a');
+    function setHeight(){
+      panel.style.maxHeight = item.classList.contains('open') ? panel.scrollHeight + 'px' : '0px';
+    }
+    setHeight();
+    btn.addEventListener('click', function(){
+      var willOpen = !item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(other){
+        other.classList.remove('open');
+        other.querySelector('.faq-q').setAttribute('aria-expanded','false');
+        other.querySelector('.faq-a').style.maxHeight = '0px';
+      });
+      if(willOpen){
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+        setHeight();
+      }
+    });
+    window.addEventListener('resize', function(){
+      if(item.classList.contains('open')) setHeight();
+    });
+  });
+
+  /* ---- Testimonial slider ---- */
+  var slidesWrap = document.getElementById('testiSlides');
+  var slides = slidesWrap.children;
+  var dotsWrap = document.getElementById('testiDots');
+  var current = 0;
+  for(var i=0;i<slides.length;i++){
+    var dot = document.createElement('button');
+    dot.className = 'testi-dot' + (i===0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to testimonial ' + (i+1));
+    dot.addEventListener('click', (function(idx){ return function(){ goTo(idx); }; })(i));
+    dotsWrap.appendChild(dot);
+  }
+  function goTo(idx){
+    current = (idx + slides.length) % slides.length;
+    slidesWrap.style.transform = 'translateX(-' + (current*100) + '%)';
+    dotsWrap.querySelectorAll('.testi-dot').forEach(function(d,i){
+      d.classList.toggle('active', i===current);
+    });
+  }
+  document.getElementById('testiPrev').addEventListener('click', function(){ goTo(current-1); });
+  document.getElementById('testiNext').addEventListener('click', function(){ goTo(current+1); });
+  var autoSlide = reduceMotion ? null : setInterval(function(){ goTo(current+1); }, 6000);
+  var testiWrap = document.querySelector('.testi-wrap');
+  testiWrap.addEventListener('mouseenter', function(){ if(autoSlide) clearInterval(autoSlide); });
+
+  /* swipe support */
+  var touchStartX = null;
+  slidesWrap.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; });
+  slidesWrap.addEventListener('touchend', function(e){
+    if(touchStartX===null) return;
+    var delta = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(delta) > 40){ delta < 0 ? goTo(current+1) : goTo(current-1); }
+    touchStartX = null;
+  });
+
+  /* ---- Contact form (demo only, no backend) ---- */
+  var form = document.getElementById('contactForm');
+  var formMsg = document.getElementById('formMsg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('fname').value.trim();
+    var phone = document.getElementById('fphone').value.trim();
+    var email = document.getElementById('femail').value.trim();
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if(!name || !phone || !emailOk){
+      formMsg.textContent = 'Please fill in your name, phone number, and a valid email address.';
+      formMsg.className = 'form-msg show error';
+      return;
+    }
+    formMsg.textContent = 'Thank you, ' + name + '. An advisor will reach out within one business day.';
+    formMsg.className = 'form-msg show success';
+    form.reset();
+  });
+
+  var newsletterForm = document.getElementById('newsletterForm');
+  newsletterForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var input = newsletterForm.querySelector('input');
+    input.value = '';
+    input.placeholder = 'Subscribed ✓';
+  });
+
+})();
+</script>
+</body>
+</html>
