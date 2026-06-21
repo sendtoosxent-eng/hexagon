@@ -137,7 +137,7 @@ ul{margin:0;padding:0;list-style:none;}
 .btn-sm{padding:9px 18px;font-size:0.85rem;}
 .btn-block{width:100%;}
 
-/* ============ HEX BADGE SYSTEM (signature element) ============ */
+/* ============ HEX BADGE SYSTEM ============ */
 .hex-badge{
   --size:60px;
   width:var(--size);height:var(--size);
@@ -205,20 +205,60 @@ ul{margin:0;padding:0;list-style:none;}
   position:relative;
   padding:148px 0 100px;
   overflow:hidden;
-  background:
-    radial-gradient(ellipse 70% 60% at 80% 0%, rgba(91,45,144,0.10), transparent 60%),
-    var(--bg);
 }
+/* --- HERO BACKGROUND SLIDER --- */
+.hero-bg-slider{
+  position:absolute;inset:0;z-index:0;
+}
+.hero-bg-slide{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  opacity:0;transition:opacity 1.2s var(--ease);
+}
+.hero-bg-slide.active{opacity:1;}
+/* Placeholder gradient slides — replace background-image with your photos */
+.hero-bg-slide:nth-child(1){
+  background-image:url('images/hero-slide-1.jpg');
+  background-color:#3D1F61; /* fallback */
+}
+.hero-bg-slide:nth-child(2){
+  background-image:url('images/hero-slide-2.jpg');
+  background-color:#2a1545;
+}
+.hero-bg-slide:nth-child(3){
+  background-image:url('images/hero-slide-3.jpg');
+  background-color:#1e0f33;
+}
+/* Dark overlay so text stays readable over photos */
+.hero-bg-slider::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(
+    135deg,
+    rgba(18,14,26,0.72) 0%,
+    rgba(91,45,144,0.45) 60%,
+    rgba(255,122,0,0.1) 100%
+  );
+  z-index:1;
+}
+/* Slider nav dots */
+.hero-slider-dots{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  display:flex;gap:8px;z-index:3;
+}
+.hero-slider-dot{
+  width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.4);border:none;padding:0;cursor:pointer;transition:background .3s,width .3s;
+}
+.hero-slider-dot.active{background:#fff;width:22px;border-radius:4px;}
+
 .hero-inner{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;position:relative;z-index:2;}
-.hero h1{font-size:clamp(2.3rem,5vw,3.4rem);letter-spacing:-0.01em;margin-bottom:20px;}
+.hero h1{font-size:clamp(2.3rem,5vw,3.4rem);letter-spacing:-0.01em;margin-bottom:20px;color:#fff;}
 .hero h1 .accent{color:var(--orange);}
-.hero-sub{font-size:1.08rem;max-width:480px;margin-bottom:32px;}
+.hero-sub{font-size:1.08rem;max-width:480px;margin-bottom:32px;color:rgba(255,255,255,0.82);}
 .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px;}
 .hero-trust{display:flex;gap:28px;flex-wrap:wrap;}
 .hero-trust div{display:flex;flex-direction:column;}
-.hero-trust .num{font-family:var(--font-mono);font-weight:700;font-size:1.3rem;color:var(--purple);}
-[data-theme="dark"] .hero-trust .num{color:var(--purple-light);}
-.hero-trust .label{font-size:0.78rem;color:var(--text-muted);margin-top:2px;}
+.hero-trust .num{font-family:var(--font-mono);font-weight:700;font-size:1.3rem;color:var(--orange);}
+.hero-trust .label{font-size:0.78rem;color:rgba(255,255,255,0.7);margin-top:2px;}
 
 .hero-visual{position:relative;height:440px;display:flex;align-items:center;justify-content:center;}
 .hex-frame{
@@ -227,10 +267,17 @@ ul{margin:0;padding:0;list-style:none;}
   background:linear-gradient(160deg,var(--purple-light),var(--purple) 55%,var(--purple-dark));
   display:flex;align-items:flex-end;justify-content:center;
   box-shadow:var(--shadow-md);
-  position:relative;
-  z-index:2;
+  position:relative;z-index:2;
+  overflow:hidden;
 }
-.hex-frame svg{width:72%;}
+/* Hero hexagon image slot */
+.hex-frame img.hex-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center top;
+  opacity:0.9;
+  /* Replace src with: images/hero-person.jpg */
+}
+.hex-frame svg{width:72%;position:relative;z-index:1;}
 .float-card{
   position:absolute;
   background:var(--card-bg);
@@ -290,6 +337,30 @@ ul{margin:0;padding:0;list-style:none;}
 .stat-tile .hex-badge{--size:46px;}
 .stat-tile .stat-num{font-family:var(--font-mono);font-weight:700;font-size:1.5rem;color:var(--text);}
 .stat-tile .stat-label{font-size:0.82rem;color:var(--text-muted);}
+
+/* --- ABOUT IMAGE SLOT --- */
+.about-img-slot{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;
+  width:100%;aspect-ratio:4/3;
+  background:linear-gradient(135deg,var(--purple-dark),var(--purple));
+  box-shadow:var(--shadow-md);
+}
+.about-img-slot img{
+  width:100%;height:100%;object-fit:cover;
+  /* Replace src with: images/about-office.jpg */
+}
+.about-img-slot .img-placeholder{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:rgba(255,255,255,0.55);gap:12px;font-size:0.82rem;font-family:var(--font-mono);
+}
+.about-img-slot .img-placeholder svg{width:40px;height:40px;stroke:currentColor;fill:none;stroke-width:1.4;opacity:0.7;}
+.about-img-badge{
+  position:absolute;bottom:20px;left:20px;
+  background:var(--orange);color:#fff;border-radius:var(--radius-sm);
+  padding:10px 16px;font-weight:700;font-size:0.85rem;font-family:var(--font-display);
+  box-shadow:0 4px 16px rgba(255,122,0,0.4);
+}
+
 @media (max-width:880px){.about-inner{grid-template-columns:1fr;}}
 
 /* ============ PRODUCTS ============ */
@@ -297,10 +368,31 @@ ul{margin:0;padding:0;list-style:none;}
 .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
 .product-card{
   background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);
-  padding:30px 26px;display:flex;flex-direction:column;gap:16px;
+  padding:0;display:flex;flex-direction:column;overflow:hidden;
   transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s;
 }
 .product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:transparent;}
+
+/* --- PRODUCT CARD IMAGE SLOT --- */
+.product-card-img{
+  width:100%;height:160px;
+  background:linear-gradient(135deg,var(--purple),var(--purple-dark));
+  position:relative;overflow:hidden;flex-shrink:0;
+}
+.product-card-img img{
+  width:100%;height:100%;object-fit:cover;
+  /* Replace src with: images/product-personal.jpg etc. */
+}
+.product-card-img .img-placeholder{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+}
+.product-card-img.orange-bg{background:linear-gradient(135deg,var(--orange),var(--orange-dark));}
+.product-card-img .hex-badge-overlay{
+  position:absolute;bottom:-20px;left:22px;
+  --size:44px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+.product-card-body{padding:36px 26px 26px;display:flex;flex-direction:column;gap:12px;flex:1;}
 .product-card h3{font-size:1.15rem;}
 .product-card p{font-size:0.92rem;flex-grow:1;}
 .product-card .learn{font-size:0.86rem;font-weight:600;color:var(--orange);display:inline-flex;align-items:center;gap:6px;}
@@ -388,10 +480,16 @@ select.calc-select{
   padding:36px;text-align:center;
 }
 .testi-quote{font-size:1.08rem;color:var(--text);margin-bottom:22px;font-style:italic;}
+/* --- TESTIMONIAL AVATAR IMAGE SLOT --- */
 .testi-avatar{
-  width:54px;height:54px;border-radius:50%;margin:0 auto 12px;
+  width:64px;height:64px;border-radius:50%;margin:0 auto 12px;
   background:linear-gradient(135deg,var(--purple),var(--orange));
   display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-family:var(--font-display);
+  overflow:hidden;font-size:1.1rem;flex-shrink:0;border:3px solid var(--border);
+}
+.testi-avatar img{
+  width:100%;height:100%;object-fit:cover;border-radius:50%;
+  /* Replace src with: images/testi-1.jpg etc. */
 }
 .testi-name{font-weight:700;font-size:0.95rem;}
 .testi-role{font-size:0.82rem;color:var(--text-muted);}
@@ -421,6 +519,70 @@ select.calc-select{
 .trust-item h5{font-size:0.92rem;margin-bottom:4px;}
 .trust-item p{font-size:0.82rem;}
 
+/* ============ TEAM SECTION ============ */
+.team{padding:96px 0;}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.team-card{
+  background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);
+  overflow:hidden;text-align:center;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease);
+}
+.team-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);}
+/* --- TEAM PHOTO SLOT --- */
+.team-photo{
+  width:100%;aspect-ratio:1/1;
+  background:linear-gradient(135deg,var(--purple),var(--purple-dark));
+  position:relative;overflow:hidden;
+}
+.team-photo img{
+  width:100%;height:100%;object-fit:cover;object-position:top;
+  /* Replace src with: images/team-1.jpg etc. */
+}
+.team-photo .img-placeholder{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:700;font-size:2rem;color:rgba(255,255,255,0.6);
+}
+.team-photo.orange-bg{background:linear-gradient(135deg,var(--orange-dark),var(--orange));}
+.team-info{padding:18px 16px;}
+.team-info h4{font-size:1rem;margin-bottom:4px;}
+.team-info p{font-size:0.82rem;}
+@media (max-width:980px){.team-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:560px){.team-grid{grid-template-columns:1fr 1fr;}}
+
+/* ============ GALLERY / BRANCH IMAGES ============ */
+.gallery{padding:80px 0;background:var(--bg-alt);}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:16px;}
+.gallery-item{
+  border-radius:var(--radius);overflow:hidden;position:relative;
+  background:linear-gradient(135deg,var(--purple-dark),var(--purple));
+}
+.gallery-item:first-child{grid-column:span 2;aspect-ratio:16/7;}
+.gallery-item:not(:first-child){aspect-ratio:4/3;}
+.gallery-item img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .4s var(--ease);
+  /* Replace src with: images/gallery-1.jpg etc. */
+}
+.gallery-item:hover img{transform:scale(1.04);}
+.gallery-item .img-placeholder{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:rgba(255,255,255,0.5);gap:10px;font-family:var(--font-mono);font-size:0.75rem;text-align:center;padding:12px;
+}
+.gallery-item .img-placeholder svg{width:32px;height:32px;stroke:currentColor;fill:none;stroke-width:1.4;}
+.gallery-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(18,14,26,0.75));
+  color:#fff;font-size:0.8rem;font-weight:600;padding:20px 16px 12px;
+}
+@media (max-width:720px){
+  .gallery-grid{grid-template-columns:1fr 1fr;}
+  .gallery-item:first-child{grid-column:span 2;}
+}
+@media (max-width:480px){
+  .gallery-grid{grid-template-columns:1fr;}
+  .gallery-item:first-child{grid-column:span 1;aspect-ratio:16/9;}
+}
+
 /* ============ FAQ ============ */
 .faq{padding:96px 0;}
 .faq-list{max-width:720px;margin:0 auto;}
@@ -444,7 +606,7 @@ select.calc-select{
   width:100%;padding:13px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);
   background:var(--bg);color:var(--text);font-family:inherit;font-size:0.92rem;resize:vertical;
 }
-.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--purple);}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--purple);outline:none;}
 .form-grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .form-msg{font-size:0.85rem;margin-top:14px;display:none;padding:12px 14px;border-radius:var(--radius-sm);}
 .form-msg.show{display:block;}
@@ -502,6 +664,167 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
 .back-top.show{opacity:1;visibility:visible;transform:translateY(0);}
 .back-top svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;}
 
+/* ============ LOAN APPLICATION MODAL ============ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(18,14,26,0.72);
+  z-index:900;display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility .3s;
+  backdrop-filter:blur(6px);
+}
+.modal-overlay.open{opacity:1;visibility:visible;}
+.modal-box{
+  background:var(--bg);border-radius:var(--radius-lg);
+  width:100%;max-width:620px;max-height:90vh;overflow-y:auto;
+  box-shadow:0 32px 80px rgba(0,0,0,0.35);
+  transform:translateY(20px) scale(0.98);
+  transition:transform .35s var(--ease);
+  position:relative;
+}
+.modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
+
+/* Modal header */
+.modal-header{
+  padding:28px 32px 0;display:flex;justify-content:space-between;align-items:flex-start;
+  position:sticky;top:0;background:var(--bg);z-index:1;padding-bottom:0;
+}
+.modal-header-text{}
+.modal-header h3{font-size:1.35rem;margin-bottom:4px;}
+.modal-header p{font-size:0.85rem;}
+.modal-close{
+  width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:none;
+  display:flex;align-items:center;justify-content:center;color:var(--text-muted);flex-shrink:0;margin-top:2px;
+  transition:border-color .2s,color .2s;
+}
+.modal-close:hover{border-color:var(--danger);color:var(--danger);}
+.modal-close svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;}
+
+/* Modal progress stepper */
+.modal-stepper{
+  display:flex;align-items:center;padding:24px 32px 0;gap:0;
+}
+.modal-step-item{
+  display:flex;align-items:center;flex:1;position:relative;
+}
+.modal-step-item:last-child{flex:0;}
+.modal-step-circle{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:0.82rem;font-weight:700;
+  border:2px solid var(--border);background:var(--bg);color:var(--text-muted);
+  transition:border-color .3s,background .3s,color .3s;position:relative;z-index:1;
+}
+.modal-step-circle svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.4;display:none;}
+.modal-step-item.done .modal-step-circle{background:var(--success);border-color:var(--success);color:transparent;}
+.modal-step-item.done .modal-step-circle svg{display:block;}
+.modal-step-item.done .modal-step-circle span{display:none;}
+.modal-step-item.active .modal-step-circle{background:var(--purple);border-color:var(--purple);color:#fff;}
+.modal-step-line{flex:1;height:2px;background:var(--border);margin:0 4px;transition:background .3s;}
+.modal-step-item.done + .modal-step-item .modal-step-line,
+.modal-step-line.done{background:var(--success);}
+.modal-step-label{
+  position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  font-size:0.7rem;font-weight:600;white-space:nowrap;color:var(--text-muted);
+  font-family:var(--font-mono);
+}
+.modal-step-item.active .modal-step-label{color:var(--purple);}
+[data-theme="dark"] .modal-step-item.active .modal-step-label{color:var(--purple-light);}
+.modal-step-item.done .modal-step-label{color:var(--success);}
+
+/* Modal body */
+.modal-body{padding:48px 32px 32px;}
+.modal-stage{display:none;}
+.modal-stage.active{display:block;}
+
+/* Modal form fields */
+.mform-row{margin-bottom:18px;}
+.mform-row label{display:block;font-size:0.84rem;font-weight:600;margin-bottom:8px;color:var(--text);}
+.mform-row input,
+.mform-row select,
+.mform-row textarea{
+  width:100%;padding:13px 14px;border-radius:var(--radius-sm);
+  border:1.5px solid var(--border);
+  background:var(--bg-alt);color:var(--text);font-family:inherit;font-size:0.92rem;
+  transition:border-color .2s;
+}
+.mform-row input:focus,
+.mform-row select:focus,
+.mform-row textarea:focus{border-color:var(--purple);outline:none;}
+.mform-row textarea{resize:vertical;min-height:90px;}
+.mform-grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.mform-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.mform-error{font-size:0.78rem;color:var(--danger);margin-top:5px;display:none;}
+.mform-row.has-error input,
+.mform-row.has-error select{border-color:var(--danger);}
+.mform-row.has-error .mform-error{display:block;}
+
+.stage-title{
+  font-family:var(--font-display);font-size:1.05rem;font-weight:700;
+  margin-bottom:20px;color:var(--text);display:flex;align-items:center;gap:10px;
+}
+.stage-title .stage-icon{
+  --size:36px;
+  width:var(--size);height:var(--size);
+  background:linear-gradient(135deg,var(--purple),var(--purple-dark));
+  clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0% 50%);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.stage-title .stage-icon svg{width:50%;height:50%;stroke:#fff;fill:none;stroke-width:2;}
+
+/* Modal footer */
+.modal-footer{
+  padding:0 32px 32px;display:flex;justify-content:space-between;align-items:center;gap:14px;
+  border-top:1px solid var(--border);padding-top:24px;margin-top:4px;
+}
+.modal-footer .btn-back{
+  display:inline-flex;align-items:center;gap:6px;font-size:0.88rem;font-weight:600;
+  color:var(--text-muted);background:none;border:none;padding:8px 0;
+}
+.modal-footer .btn-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.2;}
+.modal-footer .btn-back:hover{color:var(--text);}
+.btn-next{background:var(--purple);color:#fff;box-shadow:0 6px 18px rgba(91,45,144,0.3);}
+.btn-next:hover{background:var(--purple-dark);box-shadow:0 10px 24px rgba(91,45,144,0.4);}
+.btn-submit{background:var(--orange);color:#fff;box-shadow:0 6px 18px rgba(255,122,0,0.3);}
+.btn-submit:hover{background:var(--orange-dark);}
+
+/* Modal success screen */
+.modal-success{
+  display:none;padding:48px 32px;text-align:center;
+}
+.modal-success.active{display:block;}
+.success-hex{
+  width:90px;height:90px;margin:0 auto 24px;
+  background:linear-gradient(135deg,var(--success),#16825a);
+  clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0% 50%);
+  display:flex;align-items:center;justify-content:center;color:#fff;
+}
+.success-hex svg{width:44px;height:44px;stroke:#fff;fill:none;stroke-width:2;}
+.modal-success h3{font-size:1.5rem;margin-bottom:12px;}
+.modal-success p{font-size:0.95rem;max-width:420px;margin:0 auto 28px;}
+.app-ref{
+  font-family:var(--font-mono);font-size:0.88rem;
+  background:var(--bg-alt);border:1px dashed var(--border);border-radius:var(--radius-sm);
+  padding:10px 18px;display:inline-block;color:var(--purple);font-weight:700;margin-bottom:28px;
+}
+[data-theme="dark"] .app-ref{color:var(--purple-light);}
+
+@media (max-width:600px){
+  .modal-box{border-radius:var(--radius) var(--radius) 0 0;max-height:95vh;}
+  .modal-overlay{align-items:flex-end;padding:0;}
+  .modal-header,.modal-body,.modal-footer{padding-left:20px;padding-right:20px;}
+  .modal-stepper{padding-left:20px;padding-right:20px;}
+  .mform-grid2{grid-template-columns:1fr;}
+  .mform-grid3{grid-template-columns:1fr 1fr;}
+}
+
+/* Utility - img placeholder generic */
+.img-placeholder-generic{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:rgba(255,255,255,0.45);gap:10px;font-size:0.74rem;font-family:var(--font-mono);
+  text-align:center;padding:12px;
+}
+.img-placeholder-generic svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.4;}
+
 @media (prefers-reduced-motion: reduce){
   *{animation:none !important;transition:none !important;}
 }
@@ -521,7 +844,7 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
       <li><a href="#calculator">Calculator</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#contact" class="btn btn-primary btn-sm">Apply Now</a></li>
+      <li><button class="btn btn-primary btn-sm" id="navApplyBtn">Apply Now</button></li>
     </ul>
     <div class="nav-actions">
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
@@ -536,19 +859,32 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
 </nav>
 
 <main id="main">
+
 <!-- ============ HERO ============ -->
 <section class="hero" id="home">
+  <!-- BACKGROUND SLIDER — replace background-image in CSS or set inline style below -->
+  <div class="hero-bg-slider" id="heroBgSlider" aria-hidden="true">
+    <!--
+      IMAGE SLOT 1 — Hero slide 1
+      To add your photo: <div class="hero-bg-slide active" style="background-image:url('images/hero-slide-1.jpg')"></div>
+    -->
+    <div class="hero-bg-slide active" style="background:linear-gradient(135deg,#3D1F61 0%,#5B2D90 60%,#7C4BB8 100%);"></div>
+    <div class="hero-bg-slide" style="background:linear-gradient(135deg,#1e0f33 0%,#3D1F61 60%,#5B2D90 100%);"></div>
+    <div class="hero-bg-slide" style="background:linear-gradient(160deg,#2a1545 0%,#5B2D90 50%,#CC5C00 100%);"></div>
+  </div>
+
   <div class="deco-hex d1" aria-hidden="true"><svg viewBox="0 0 100 86.6"><polygon points="25,0 75,0 100,43.3 75,86.6 25,86.6 0,43.3"/></svg></div>
   <div class="deco-hex d2" aria-hidden="true"><svg viewBox="0 0 100 86.6"><polygon points="25,0 75,0 100,43.3 75,86.6 25,86.6 0,43.3"/></svg></div>
   <div class="deco-hex d3" aria-hidden="true"><svg viewBox="0 0 100 86.6"><polygon points="25,0 75,0 100,43.3 75,86.6 25,86.6 0,43.3"/></svg></div>
+
   <div class="container hero-inner">
     <div class="hero-copy reveal">
       <span class="eyebrow">Licensed Lending Partner · Uganda</span>
       <h1>Fast, Flexible &amp; <span class="accent">Reliable</span> Financial Solutions</h1>
       <p class="hero-sub">Get the financial support you need with quick approvals, competitive rates, and personalized lending solutions — built for individuals, salary earners, and businesses across Uganda.</p>
       <div class="hero-ctas">
-        <a href="#contact" class="btn btn-primary">Apply for a Loan</a>
-        <a href="#contact" class="btn btn-secondary">Talk to an Advisor</a>
+        <button class="btn btn-primary open-modal-btn" data-product="">Apply for a Loan</button>
+        <a href="#contact" class="btn btn-secondary" style="color:#fff;border-color:rgba(255,255,255,0.35);">Talk to an Advisor</a>
       </div>
       <div class="hero-trust">
         <div><span class="num">8+ yrs</span><span class="label">In operation</span></div>
@@ -556,9 +892,15 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
         <div><span class="num">24-Hr</span><span class="label">Avg. approval</span></div>
       </div>
     </div>
+
     <div class="hero-visual reveal">
       <div class="hex-frame">
-        <svg viewBox="0 0 120 150" aria-hidden="true">
+        <!--
+          IMAGE SLOT — Hero hexagon person/staff photo
+          Add: <img class="hex-img" src="images/hero-person.jpg" alt="Hexagon Finance advisor">
+          When no image is provided, the SVG icon shows instead.
+        -->
+        <svg viewBox="0 0 120 150" aria-hidden="true" style="position:relative;z-index:1;">
           <circle cx="60" cy="44" r="22" fill="#fff" opacity="0.95"/>
           <path d="M20 150 Q20 96 60 96 Q100 96 100 150 Z" fill="#fff" opacity="0.95"/>
           <rect x="68" y="78" width="20" height="34" rx="4" fill="var(--orange)"/>
@@ -575,6 +917,13 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
       </div>
     </div>
   </div>
+
+  <!-- Hero slider dots -->
+  <div class="hero-slider-dots" id="heroSliderDots" aria-hidden="true">
+    <button class="hero-slider-dot active" data-slide="0"></button>
+    <button class="hero-slider-dot" data-slide="1"></button>
+    <button class="hero-slider-dot" data-slide="2"></button>
+  </div>
 </section>
 
 <!-- ============ ABOUT ============ -->
@@ -586,26 +935,83 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
       <p>Hexagon Finance was founded to make borrowing simple, transparent, and fair. We work with salary earners, entrepreneurs, and small businesses across Uganda who need fast, honest access to credit — without confusing terms or hidden charges.</p>
       <p>Every product we offer is built around three principles: clear pricing, realistic repayment plans, and decisions you can act on the same day you apply.</p>
     </div>
-    <div class="stat-grid reveal">
-      <div class="stat-tile">
-        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 3M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg></span>
-        <span class="stat-num">8+ Years</span>
-        <span class="stat-label">In operation</span>
+
+    <!-- ABOUT IMAGE SLOT -->
+    <div class="about-img-slot reveal">
+      <!--
+        IMAGE SLOT — About / office photo
+        Add: <img src="images/about-office.jpg" alt="Hexagon Finance office Kampala">
+        Fallback placeholder is shown until the image is added.
+      -->
+      <div class="img-placeholder">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <span>about-office.jpg</span>
       </div>
-      <div class="stat-tile">
-        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
-        <span class="stat-num">Licensed</span>
-        <span class="stat-label">Money lender</span>
+      <div class="about-img-badge">Est. 2016 · Kampala</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section class="team" id="team">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Our people</span>
+      <h2>Meet the Team</h2>
+      <p>A dedicated group of financial professionals committed to making lending accessible to every Ugandan.</p>
+    </div>
+    <div class="team-grid">
+      <!--
+        IMAGE SLOTS — Team member photos
+        Add: <img src="images/team-1.jpg" alt="Sarah Nakato">  inside each .team-photo div
+      -->
+      <div class="team-card reveal">
+        <div class="team-photo">
+          <div class="img-placeholder-generic">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span>team-1.jpg</span>
+          </div>
+        </div>
+        <div class="team-info">
+          <h4>Sarah Nakato</h4>
+          <p>Chief Executive Officer</p>
+        </div>
       </div>
-      <div class="stat-tile">
-        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></span>
-        <span class="stat-num">12,400+</span>
-        <span class="stat-label">Happy clients</span>
+      <div class="team-card reveal">
+        <div class="team-photo orange-bg">
+          <div class="img-placeholder-generic">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span>team-2.jpg</span>
+          </div>
+        </div>
+        <div class="team-info">
+          <h4>David Opio</h4>
+          <p>Head of Credit</p>
+        </div>
       </div>
-      <div class="stat-tile">
-        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
-        <span class="stat-num">24-Hr</span>
-        <span class="stat-label">Loan processing</span>
+      <div class="team-card reveal">
+        <div class="team-photo">
+          <div class="img-placeholder-generic">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span>team-3.jpg</span>
+          </div>
+        </div>
+        <div class="team-info">
+          <h4>Ruth Achieng</h4>
+          <p>Client Relations Manager</p>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-photo orange-bg">
+          <div class="img-placeholder-generic">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span>team-4.jpg</span>
+          </div>
+        </div>
+        <div class="team-info">
+          <h4>James Ssekandi</h4>
+          <p>Loans Officer</p>
+        </div>
       </div>
     </div>
   </div>
@@ -620,41 +1026,77 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
       <p>Six straightforward products, each priced and structured for the way real people and businesses actually borrow.</p>
     </div>
     <div class="product-grid">
+      <!--
+        IMAGE SLOTS — Product card photos
+        Add a real photo inside .product-card-img:
+        <img src="images/product-personal.jpg" alt="Personal Loans">
+        The hex-badge overlaps the bottom edge of the photo — don't remove it.
+      -->
       <div class="product-card reveal">
-        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 010-4h14v4M3 5v14a2 2 0 002 2h16v-5M18 12a2 2 0 100 4 2 2 0 000-4z"/></svg></span>
-        <h3>Personal Loans</h3>
-        <p>Cover rent, medical bills, or personal projects with flexible amounts and repayment terms up to 36 months.</p>
-        <a href="#contact" class="learn">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="product-card-img">
+          <div class="img-placeholder-generic"><svg viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 010-4h14v4M3 5v14a2 2 0 002 2h16v-5"/></svg><span>product-personal.jpg</span></div>
+          <span class="hex-badge hex-badge-overlay"><svg viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 010-4h14v4M3 5v14a2 2 0 002 2h16v-5M18 12a2 2 0 100 4 2 2 0 000-4z"/></svg></span>
+        </div>
+        <div class="product-card-body">
+          <h3>Personal Loans</h3>
+          <p>Cover rent, medical bills, or personal projects with flexible amounts and repayment terms up to 36 months.</p>
+          <button class="learn open-modal-btn" data-product="Personal Loan">Apply now <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
       </div>
       <div class="product-card reveal">
-        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M3 7h18v13H3zM8 7V4a2 2 0 012-2h4a2 2 0 012 2v3M3 12h18"/></svg></span>
-        <h3>Business Loans</h3>
-        <p>Working capital and growth financing for SMEs, sized to your cash flow with no collateral surprises.</p>
-        <a href="#contact" class="learn">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="product-card-img orange-bg">
+          <div class="img-placeholder-generic"><svg viewBox="0 0 24 24"><path d="M3 7h18v13H3zM8 7V4a2 2 0 012-2h4a2 2 0 012 2v3"/></svg><span>product-business.jpg</span></div>
+          <span class="hex-badge orange hex-badge-overlay"><svg viewBox="0 0 24 24"><path d="M3 7h18v13H3zM8 7V4a2 2 0 012-2h4a2 2 0 012 2v3M3 12h18"/></svg></span>
+        </div>
+        <div class="product-card-body">
+          <h3>Business Loans</h3>
+          <p>Working capital and growth financing for SMEs, sized to your cash flow with no collateral surprises.</p>
+          <button class="learn open-modal-btn" data-product="Business Loan">Apply now <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
       </div>
       <div class="product-card reveal">
-        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.86L1.8 18a1.5 1.5 0 001.3 2.25h17.8a1.5 1.5 0 001.3-2.25L13.7 3.86a1.5 1.5 0 00-2.6 0z"/></svg></span>
-        <h3>Emergency Loans</h3>
-        <p>Same-day support for unexpected expenses, with a streamlined application and minimal documentation.</p>
-        <a href="#contact" class="learn">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="product-card-img">
+          <div class="img-placeholder-generic"><svg viewBox="0 0 24 24"><path d="M10.3 3.86L1.8 18a1.5 1.5 0 001.3 2.25h17.8a1.5 1.5 0 001.3-2.25L13.7 3.86a1.5 1.5 0 00-2.6 0z"/></svg><span>product-emergency.jpg</span></div>
+          <span class="hex-badge hex-badge-overlay"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.86L1.8 18a1.5 1.5 0 001.3 2.25h17.8a1.5 1.5 0 001.3-2.25L13.7 3.86a1.5 1.5 0 00-2.6 0z"/></svg></span>
+        </div>
+        <div class="product-card-body">
+          <h3>Emergency Loans</h3>
+          <p>Same-day support for unexpected expenses, with a streamlined application and minimal documentation.</p>
+          <button class="learn open-modal-btn" data-product="Emergency Loan">Apply now <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
       </div>
       <div class="product-card reveal">
-        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
-        <h3>Salary Loans</h3>
-        <p>Quick top-ups for salaried employees, repaid through manageable monthly deductions.</p>
-        <a href="#contact" class="learn">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="product-card-img orange-bg">
+          <div class="img-placeholder-generic"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span>product-salary.jpg</span></div>
+          <span class="hex-badge orange hex-badge-overlay"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
+        </div>
+        <div class="product-card-body">
+          <h3>Salary Loans</h3>
+          <p>Quick top-ups for salaried employees, repaid through manageable monthly deductions.</p>
+          <button class="learn open-modal-btn" data-product="Salary Loan">Apply now <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
       </div>
       <div class="product-card reveal">
-        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M3 13h18M5 13V8l3-4h8l3 4v5M5 13v6a1 1 0 001 1h2a1 1 0 001-1v-2h6v2a1 1 0 001 1h2a1 1 0 001-1v-6"/></svg></span>
-        <h3>Asset Financing</h3>
-        <p>Finance vehicles, equipment, or machinery with the asset itself serving as security.</p>
-        <a href="#contact" class="learn">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="product-card-img">
+          <div class="img-placeholder-generic"><svg viewBox="0 0 24 24"><path d="M3 13h18M5 13V8l3-4h8l3 4v5"/></svg><span>product-asset.jpg</span></div>
+          <span class="hex-badge hex-badge-overlay"><svg viewBox="0 0 24 24"><path d="M3 13h18M5 13V8l3-4h8l3 4v5M5 13v6a1 1 0 001 1h2a1 1 0 001-1v-2h6v2a1 1 0 001 1h2a1 1 0 001-1v-6"/></svg></span>
+        </div>
+        <div class="product-card-body">
+          <h3>Asset Financing</h3>
+          <p>Finance vehicles, equipment, or machinery with the asset itself serving as security.</p>
+          <button class="learn open-modal-btn" data-product="Asset Financing">Apply now <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
       </div>
       <div class="product-card reveal">
-        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5 10-5zM6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></span>
-        <h3>School Fees Loans</h3>
-        <p>Spread tuition costs across the term so fees deadlines never get in the way of education.</p>
-        <a href="#contact" class="learn">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="product-card-img orange-bg">
+          <div class="img-placeholder-generic"><svg viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5 10-5zM6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg><span>product-school.jpg</span></div>
+          <span class="hex-badge orange hex-badge-overlay"><svg viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5 10-5zM6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></span>
+        </div>
+        <div class="product-card-body">
+          <h3>School Fees Loans</h3>
+          <p>Spread tuition costs across the term so fees deadlines never get in the way of education.</p>
+          <button class="learn open-modal-btn" data-product="School Fees Loan">Apply now <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
       </div>
     </div>
   </div>
@@ -668,30 +1110,12 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
       <h2>Lending that respects your time and your money</h2>
     </div>
     <div class="why-grid">
-      <div class="why-item reveal">
-        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
-        <div><h4>Quick Approval</h4><p>Most decisions are made within 24 hours of a complete application.</p></div>
-      </div>
-      <div class="why-item reveal">
-        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M3 10h18M7 3v4M17 3v4M5 7h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z"/></svg></span>
-        <div><h4>Flexible Repayment</h4><p>Choose a schedule that matches your income cycle, not the other way around.</p></div>
-      </div>
-      <div class="why-item reveal">
-        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M19 5L5 19M9 6a3 3 0 11-6 0 3 3 0 016 0zM21 18a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
-        <div><h4>Competitive Rates</h4><p>Transparent, clearly disclosed pricing with no hidden charges.</p></div>
-      </div>
-      <div class="why-item reveal">
-        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg></span>
-        <div><h4>Secure Transactions</h4><p>Bank-grade encryption protects every application and disbursement.</p></div>
-      </div>
-      <div class="why-item reveal">
-        <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M3 8a4 4 0 014-4h3M3 16a4 4 0 004 4h3M21 8a4 4 0 00-4-4h-3M21 16a4 4 0 01-4 4h-3M12 8v8M8 12h8"/></svg></span>
-        <div><h4>Professional Support</h4><p>A dedicated advisor is available throughout your loan term.</p></div>
-      </div>
-      <div class="why-item reveal">
-        <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M12 15a4 4 0 100-8 4 4 0 000 8zM6 21l1.5-5M18 21l-1.5-5"/></svg></span>
-        <div><h4>Trusted by Thousands</h4><p>Over a decade of combined experience serving Ugandan borrowers.</p></div>
-      </div>
+      <div class="why-item reveal"><span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></span><div><h4>Quick Approval</h4><p>Most decisions are made within 24 hours of a complete application.</p></div></div>
+      <div class="why-item reveal"><span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M3 10h18M7 3v4M17 3v4M5 7h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z"/></svg></span><div><h4>Flexible Repayment</h4><p>Choose a schedule that matches your income cycle, not the other way around.</p></div></div>
+      <div class="why-item reveal"><span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M19 5L5 19M9 6a3 3 0 11-6 0 3 3 0 016 0zM21 18a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span><div><h4>Competitive Rates</h4><p>Transparent, clearly disclosed pricing with no hidden charges.</p></div></div>
+      <div class="why-item reveal"><span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg></span><div><h4>Secure Transactions</h4><p>Bank-grade encryption protects every application and disbursement.</p></div></div>
+      <div class="why-item reveal"><span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M3 8a4 4 0 014-4h3M3 16a4 4 0 004 4h3M21 8a4 4 0 00-4-4h-3M21 16a4 4 0 01-4 4h-3M12 8v8M8 12h8"/></svg></span><div><h4>Professional Support</h4><p>A dedicated advisor is available throughout your loan term.</p></div></div>
+      <div class="why-item reveal"><span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M12 15a4 4 0 100-8 4 4 0 000 8zM6 21l1.5-5M18 21l-1.5-5"/></svg></span><div><h4>Trusted by Thousands</h4><p>Over a decade of combined experience serving Ugandan borrowers.</p></div></div>
     </div>
   </div>
 </section>
@@ -720,14 +1144,8 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
         </select>
       </div>
       <div class="calc-results">
-        <div class="calc-result">
-          <div class="r-label">Estimated Monthly Installment</div>
-          <div class="r-val mono-num" id="monthlyVal">UGX 0</div>
-        </div>
-        <div class="calc-result">
-          <div class="r-label">Total Repayment</div>
-          <div class="r-val mono-num" id="totalVal">UGX 0</div>
-        </div>
+        <div class="calc-result"><div class="r-label">Estimated Monthly Installment</div><div class="r-val mono-num" id="monthlyVal">UGX 0</div></div>
+        <div class="calc-result"><div class="r-label">Total Repayment</div><div class="r-val mono-num" id="totalVal">UGX 0</div></div>
       </div>
       <p class="calc-fine">Based on an indicative flat rate of 3% per month. Actual rates depend on the loan product and credit assessment. This calculator is for illustration only and is not a loan offer.</p>
     </div>
@@ -743,26 +1161,10 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
       <p>From application to funds in your account — four steps, most completed within a day.</p>
     </div>
     <div class="steps">
-      <div class="step reveal">
-        <span class="step-num">01</span>
-        <h4>Apply Online</h4>
-        <p>Fill in a short form with your details and the loan product you need.</p>
-      </div>
-      <div class="step reveal">
-        <span class="step-num">02</span>
-        <h4>Submit Documents</h4>
-        <p>Upload ID and income proof — most applicants need just two documents.</p>
-      </div>
-      <div class="step reveal">
-        <span class="step-num">03</span>
-        <h4>Get Approval</h4>
-        <p>Our team reviews and responds, typically within 24 hours.</p>
-      </div>
-      <div class="step reveal">
-        <span class="step-num">04</span>
-        <h4>Receive Funds</h4>
-        <p>Approved funds are disbursed directly to your bank or mobile money account.</p>
-      </div>
+      <div class="step reveal"><span class="step-num">01</span><h4>Apply Online</h4><p>Fill in a short form with your details and the loan product you need.</p></div>
+      <div class="step reveal"><span class="step-num">02</span><h4>Submit Documents</h4><p>Upload ID and income proof — most applicants need just two documents.</p></div>
+      <div class="step reveal"><span class="step-num">03</span><h4>Get Approval</h4><p>Our team reviews and responds, typically within 24 hours.</p></div>
+      <div class="step reveal"><span class="step-num">04</span><h4>Receive Funds</h4><p>Approved funds are disbursed directly to your bank or mobile money account.</p></div>
     </div>
   </div>
 </section>
@@ -780,6 +1182,10 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
           <div class="testi-slide">
             <div class="testi-card">
               <p class="testi-quote">"Hexagon Finance approved my business loan in a day. The repayment plan actually matched my shop's monthly income — no stress."</p>
+              <!--
+                IMAGE SLOT — Testimonial avatar
+                Add: <img src="images/testi-patricia.jpg" alt="Patricia N."> inside .testi-avatar
+              -->
               <div class="testi-avatar">PN</div>
               <div class="testi-name">Patricia N.</div>
               <div class="testi-role">Boutique Owner, Kampala</div>
@@ -824,39 +1230,52 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
 <section class="stats" id="stats">
   <div class="deco-hex d1" aria-hidden="true" style="opacity:0.12;"><svg viewBox="0 0 100 86.6" style="stroke:#fff;"><polygon points="25,0 75,0 100,43.3 75,86.6 25,86.6 0,43.3"/></svg></div>
   <div class="container stats-grid">
-    <div class="stat-block reveal">
-      <div class="count" data-target="10000" data-suffix="+">0</div>
-      <div class="label">Loans Processed</div>
-    </div>
-    <div class="stat-block reveal">
-      <div class="count" data-target="50" data-suffix="B+" data-prefix="UGX ">0</div>
-      <div class="label">Disbursed</div>
-    </div>
-    <div class="stat-block reveal">
-      <div class="count" data-target="98" data-suffix="%">0</div>
-      <div class="label">Customer Satisfaction</div>
-    </div>
-    <div class="stat-block reveal">
-      <div class="count" data-target="24" data-suffix="-Hr">0</div>
-      <div class="label">Approval Process</div>
-    </div>
+    <div class="stat-block reveal"><div class="count" data-target="10000" data-suffix="+">0</div><div class="label">Loans Processed</div></div>
+    <div class="stat-block reveal"><div class="count" data-target="50" data-suffix="B+" data-prefix="UGX ">0</div><div class="label">Disbursed</div></div>
+    <div class="stat-block reveal"><div class="count" data-target="98" data-suffix="%">0</div><div class="label">Customer Satisfaction</div></div>
+    <div class="stat-block reveal"><div class="count" data-target="24" data-suffix="-Hr">0</div><div class="label">Approval Process</div></div>
   </div>
 </section>
 
-<!-- ============ TRUST & COMPLIANCE ============ -->
+<!-- ============ TRUST BAND ============ -->
 <section class="trust-band">
   <div class="container trust-inner">
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>
-      <div><h5>Licensed &amp; Regulated</h5><p>Operating under Uganda's Tier 4 Microfinance Institutions and Money Lenders Act. Licence No. ML-0000 (sample).</p></div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg><div><h5>Licensed &amp; Regulated</h5><p>Operating under Uganda's Tier 4 Microfinance Institutions and Money Lenders Act. Licence No. ML-0000 (sample).</p></div></div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><div><h5>Transparent Pricing</h5><p>All interest rates and fees are disclosed in writing before you sign any agreement.</p></div></div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-1a4 4 0 00-3-3.87"/></svg><div><h5>Responsible Lending</h5><p>We assess affordability before approval and never lend beyond a manageable repayment capacity.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Our spaces</span>
+      <h2>Branches &amp; Office Gallery</h2>
+      <p>Visit us at any of our locations across Uganda or apply online — we're always open.</p>
     </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      <div><h5>Transparent Pricing</h5><p>All interest rates and fees are disclosed in writing before you sign any agreement.</p></div>
-    </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-1a4 4 0 00-3-3.87"/></svg>
-      <div><h5>Responsible Lending</h5><p>We assess affordability before approval and never lend beyond a manageable repayment capacity.</p></div>
+    <!--
+      IMAGE SLOTS — Gallery / branch photos
+      Replace each .img-placeholder-generic with:
+      <img src="images/gallery-1.jpg" alt="Kampala head office">
+    -->
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div class="img-placeholder-generic"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span>gallery-main.jpg<br>Head Office — Kampala Road</span></div>
+        <div class="gallery-caption">Head Office — Kampala Road</div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-placeholder-generic"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span>gallery-2.jpg<br>Entebbe Branch</span></div>
+        <div class="gallery-caption">Entebbe Branch</div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-placeholder-generic"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span>gallery-3.jpg<br>Mukono Branch</span></div>
+        <div class="gallery-caption">Mukono Branch</div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-placeholder-generic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span>gallery-4.jpg<br>Client Consultation</span></div>
+        <div class="gallery-caption">Client Consultation</div>
+      </div>
     </div>
   </div>
 </section>
@@ -864,10 +1283,7 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
 <!-- ============ FAQ ============ -->
 <section class="faq" id="faq">
   <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Questions</span>
-      <h2>Frequently Asked Questions</h2>
-    </div>
+    <div class="section-head reveal"><span class="eyebrow">Questions</span><h2>Frequently Asked Questions</h2></div>
     <div class="faq-list reveal">
       <div class="faq-item open">
         <button class="faq-q" aria-expanded="true">How do I qualify?<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
@@ -882,7 +1298,7 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
         <div class="faq-a"><p>Most complete applications are reviewed within 24 hours. Complex business or asset financing applications may take slightly longer.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">Can I repay early?</button>
+        <button class="faq-q" aria-expanded="false">Can I repay early?<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
         <div class="faq-a"><p>Yes. Early repayment is allowed on all products, and we'll confirm any applicable settlement figure in writing before you pay it off.</p></div>
       </div>
       <div class="faq-item">
@@ -896,63 +1312,32 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
 <!-- ============ CONTACT ============ -->
 <section class="contact" id="contact">
   <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Get in touch</span>
-      <h2>Start Your Application</h2>
-      <p>Send us your details and an advisor will reach out within one business day.</p>
-    </div>
+    <div class="section-head reveal"><span class="eyebrow">Get in touch</span><h2>Start Your Application</h2><p>Send us your details and an advisor will reach out within one business day.</p></div>
     <div class="contact-inner">
       <form class="contact-form reveal" id="contactForm" novalidate>
         <div class="form-grid2">
-          <div class="form-row">
-            <label for="fname">Full Name</label>
-            <input type="text" id="fname" name="fname" required>
-          </div>
-          <div class="form-row">
-            <label for="fphone">Phone Number</label>
-            <input type="tel" id="fphone" name="fphone" required>
-          </div>
+          <div class="form-row"><label for="fname">Full Name</label><input type="text" id="fname" name="fname" required></div>
+          <div class="form-row"><label for="fphone">Phone Number</label><input type="tel" id="fphone" name="fphone" required></div>
         </div>
         <div class="form-grid2">
-          <div class="form-row">
-            <label for="femail">Email Address</label>
-            <input type="email" id="femail" name="femail" required>
-          </div>
+          <div class="form-row"><label for="femail">Email Address</label><input type="email" id="femail" name="femail" required></div>
           <div class="form-row">
             <label for="fproduct">Loan Product</label>
             <select id="fproduct" name="fproduct">
-              <option>Personal Loan</option>
-              <option>Business Loan</option>
-              <option>Emergency Loan</option>
-              <option>Salary Loan</option>
-              <option>Asset Financing</option>
-              <option>School Fees Loan</option>
+              <option>Personal Loan</option><option>Business Loan</option><option>Emergency Loan</option>
+              <option>Salary Loan</option><option>Asset Financing</option><option>School Fees Loan</option>
             </select>
           </div>
         </div>
-        <div class="form-row">
-          <label for="fmessage">Message</label>
-          <textarea id="fmessage" name="fmessage" rows="4" placeholder="Tell us a bit about what you need"></textarea>
-        </div>
+        <div class="form-row"><label for="fmessage">Message</label><textarea id="fmessage" name="fmessage" rows="4" placeholder="Tell us a bit about what you need"></textarea></div>
         <button type="submit" class="btn btn-primary btn-block">Send Message</button>
         <div class="form-msg" id="formMsg"></div>
       </form>
       <div class="contact-info reveal">
-        <div class="info-card">
-          <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.69 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0122 16.92z"/></svg></span>
-          <div><h5>Phone</h5><p>+256 700 000 000</p></div>
-        </div>
-        <div class="info-card">
-          <span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM22 6l-10 7L2 6"/></svg></span>
-          <div><h5>Email</h5><p>hello@hexagonfinance.ug</p></div>
-        </div>
-        <div class="info-card">
-          <span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
-          <div><h5>Office</h5><p>Plot 14, Kampala Road, Kampala, Uganda</p></div>
-        </div>
-        <div class="map-embed">
-          <iframe title="Hexagon Finance location map" loading="lazy" src="https://www.google.com/maps?q=Kampala%20Road%2C%20Kampala%2C%20Uganda&output=embed"></iframe>
-        </div>
+        <div class="info-card"><span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.69 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0122 16.92z"/></svg></span><div><h5>Phone</h5><p>+256 700 000 000</p></div></div>
+        <div class="info-card"><span class="hex-badge orange"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM22 6l-10 7L2 6"/></svg></span><div><h5>Email</h5><p>hello@hexagonfinance.ug</p></div></div>
+        <div class="info-card"><span class="hex-badge"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><h5>Office</h5><p>Plot 14, Kampala Road, Kampala, Uganda</p></div></div>
+        <div class="map-embed"><iframe title="Hexagon Finance location map" loading="lazy" src="https://www.google.com/maps?q=Kampala%20Road%2C%20Kampala%2C%20Uganda&output=embed"></iframe></div>
       </div>
     </div>
   </div>
@@ -975,21 +1360,11 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
       </div>
       <div class="footer-col">
         <h6>Quick Links</h6>
-        <ul>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#calculator">Calculator</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+        <ul><li><a href="#about">About Us</a></li><li><a href="#calculator">Calculator</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li></ul>
       </div>
       <div class="footer-col">
         <h6>Loan Products</h6>
-        <ul>
-          <li><a href="#products">Personal Loans</a></li>
-          <li><a href="#products">Business Loans</a></li>
-          <li><a href="#products">Emergency Loans</a></li>
-          <li><a href="#products">School Fees Loans</a></li>
-        </ul>
+        <ul><li><a href="#products">Personal Loans</a></li><li><a href="#products">Business Loans</a></li><li><a href="#products">Emergency Loans</a></li><li><a href="#products">School Fees Loans</a></li></ul>
       </div>
       <div class="footer-col">
         <h6>Stay Updated</h6>
@@ -1010,9 +1385,7 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
 
 <!-- ============ FLOATING ACTIONS ============ -->
 <div class="floating-actions">
-  <button class="back-top" id="backTop" aria-label="Back to top">
-    <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-  </button>
+  <button class="back-top" id="backTop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
   <a class="fab fab-whatsapp" href="https://wa.me/256700000000" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
     <span class="fab-ring" aria-hidden="true"></span>
     <svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M12 2a10 10 0 00-8.5 15.3L2 22l4.9-1.3A10 10 0 1012 2zm5.6 14.3c-.2.6-1.4 1.2-1.9 1.3-.5.1-1.1.2-3.2-.7-2.7-1.1-4.4-3.8-4.5-4-.1-.2-1-1.3-1-2.5s.6-1.8.8-2c.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .5.4.2.5.7 1.7.7 1.8.1.2.1.3 0 .5-.1.2-.2.3-.3.5l-.4.4c-.1.1-.3.3-.1.6.2.4 1 1.4 2.1 2.3 1.4 1.2 1.6 1.2 1.9 1.1.3-.1.7-.5 1-.8.2-.2.4-.2.7-.1.3.1 1.6.8 1.8.9.2.1.4.2.4.4.1.2.1.6-.1 1.2z"/></svg>
@@ -1022,6 +1395,259 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
     <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.69 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0122 16.92z"/></svg>
   </a>
 </div>
+
+<!-- ============================================================ -->
+<!-- LOAN APPLICATION MODAL                                       -->
+<!-- ============================================================ -->
+<div class="modal-overlay" id="loanModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box" id="modalBox">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <div class="modal-header-text">
+        <h3 id="modalTitle" style="font-family:var(--font-display)">Loan Application</h3>
+        <p>Complete all three stages — takes about 3 minutes.</p>
+      </div>
+      <button class="modal-close" id="modalClose" aria-label="Close modal">
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Stepper -->
+    <div class="modal-stepper" id="modalStepper">
+      <div class="modal-step-item active" id="stepItem1">
+        <div class="modal-step-circle"><span>1</span><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+        <span class="modal-step-label">Personal</span>
+        <div class="modal-step-line" id="stepLine1"></div>
+      </div>
+      <div class="modal-step-item" id="stepItem2">
+        <div class="modal-step-circle"><span>2</span><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+        <span class="modal-step-label">Employment</span>
+        <div class="modal-step-line" id="stepLine2"></div>
+      </div>
+      <div class="modal-step-item" id="stepItem3">
+        <div class="modal-step-circle"><span>3</span><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+        <span class="modal-step-label">Next of Kin</span>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <!-- ---- STAGE 1: Personal Data ---- -->
+      <div class="modal-stage active" id="modalStage1">
+        <div class="stage-title">
+          <span class="stage-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
+          Personal Information
+        </div>
+        <div class="mform-grid2">
+          <div class="mform-row" id="row-s1-fname">
+            <label for="s1-fname">First Name *</label>
+            <input type="text" id="s1-fname" placeholder="e.g. Sarah">
+            <div class="mform-error">Please enter your first name.</div>
+          </div>
+          <div class="mform-row" id="row-s1-lname">
+            <label for="s1-lname">Last Name *</label>
+            <input type="text" id="s1-lname" placeholder="e.g. Nakato">
+            <div class="mform-error">Please enter your last name.</div>
+          </div>
+        </div>
+        <div class="mform-grid2">
+          <div class="mform-row" id="row-s1-dob">
+            <label for="s1-dob">Date of Birth *</label>
+            <input type="date" id="s1-dob">
+            <div class="mform-error">Please enter your date of birth.</div>
+          </div>
+          <div class="mform-row" id="row-s1-gender">
+            <label for="s1-gender">Gender *</label>
+            <select id="s1-gender">
+              <option value="">— Select —</option>
+              <option>Male</option><option>Female</option><option>Prefer not to say</option>
+            </select>
+            <div class="mform-error">Please select your gender.</div>
+          </div>
+        </div>
+        <div class="mform-grid2">
+          <div class="mform-row" id="row-s1-phone">
+            <label for="s1-phone">Phone Number *</label>
+            <input type="tel" id="s1-phone" placeholder="+256 7XX XXX XXX">
+            <div class="mform-error">Please enter a valid phone number.</div>
+          </div>
+          <div class="mform-row" id="row-s1-email">
+            <label for="s1-email">Email Address</label>
+            <input type="email" id="s1-email" placeholder="you@example.com">
+            <div class="mform-error">Please enter a valid email address.</div>
+          </div>
+        </div>
+        <div class="mform-row" id="row-s1-nin">
+          <label for="s1-nin">National ID Number (NIN) *</label>
+          <input type="text" id="s1-nin" placeholder="CM00000000XXXXX">
+          <div class="mform-error">Please enter your NIN.</div>
+        </div>
+        <div class="mform-row" id="row-s1-address">
+          <label for="s1-address">Residential Address *</label>
+          <input type="text" id="s1-address" placeholder="e.g. Ntinda, Kampala">
+          <div class="mform-error">Please enter your residential address.</div>
+        </div>
+        <div class="mform-grid2">
+          <div class="mform-row" id="row-s1-product">
+            <label for="s1-product">Loan Product *</label>
+            <select id="s1-product">
+              <option value="">— Select Product —</option>
+              <option>Personal Loan</option><option>Business Loan</option><option>Emergency Loan</option>
+              <option>Salary Loan</option><option>Asset Financing</option><option>School Fees Loan</option>
+            </select>
+            <div class="mform-error">Please select a loan product.</div>
+          </div>
+          <div class="mform-row" id="row-s1-amount">
+            <label for="s1-amount">Loan Amount (UGX) *</label>
+            <input type="number" id="s1-amount" placeholder="e.g. 2000000" min="100000" max="50000000">
+            <div class="mform-error">Please enter the amount you need.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- STAGE 2: Job / Employment Details ---- -->
+      <div class="modal-stage" id="modalStage2">
+        <div class="stage-title">
+          <span class="stage-icon" style="background:linear-gradient(135deg,var(--orange),var(--orange-dark))"><svg viewBox="0 0 24 24"><path d="M3 7h18v13H3zM8 7V4a2 2 0 012-2h4a2 2 0 012 2v3M3 12h18"/></svg></span>
+          Employment Details
+        </div>
+        <div class="mform-row" id="row-s2-emptype">
+          <label for="s2-emptype">Employment Type *</label>
+          <select id="s2-emptype">
+            <option value="">— Select —</option>
+            <option>Salaried (Government)</option>
+            <option>Salaried (Private Sector)</option>
+            <option>Self-Employed / Business Owner</option>
+            <option>Casual / Contractor</option>
+            <option>Other</option>
+          </select>
+          <div class="mform-error">Please select your employment type.</div>
+        </div>
+        <div class="mform-grid2">
+          <div class="mform-row" id="row-s2-employer">
+            <label for="s2-employer">Employer / Business Name *</label>
+            <input type="text" id="s2-employer" placeholder="e.g. Ministry of Education">
+            <div class="mform-error">Please enter your employer or business name.</div>
+          </div>
+          <div class="mform-row" id="row-s2-jobtitle">
+            <label for="s2-jobtitle">Job Title / Position *</label>
+            <input type="text" id="s2-jobtitle" placeholder="e.g. Senior Accountant">
+            <div class="mform-error">Please enter your job title.</div>
+          </div>
+        </div>
+        <div class="mform-grid2">
+          <div class="mform-row" id="row-s2-tenure">
+            <label for="s2-tenure">Duration at Current Job *</label>
+            <select id="s2-tenure">
+              <option value="">— Select —</option>
+              <option>Less than 6 months</option>
+              <option>6 – 12 months</option>
+              <option>1 – 3 years</option>
+              <option>3 – 5 years</option>
+              <option>Over 5 years</option>
+            </select>
+            <div class="mform-error">Please select your tenure.</div>
+          </div>
+          <div class="mform-row" id="row-s2-income">
+            <label for="s2-income">Monthly Net Income (UGX) *</label>
+            <input type="number" id="s2-income" placeholder="e.g. 1500000" min="0">
+            <div class="mform-error">Please enter your monthly net income.</div>
+          </div>
+        </div>
+        <div class="mform-row" id="row-s2-empaddress">
+          <label for="s2-empaddress">Employer / Business Address *</label>
+          <input type="text" id="s2-empaddress" placeholder="e.g. Plot 10, Jinja Road, Kampala">
+          <div class="mform-error">Please enter the employer or business address.</div>
+        </div>
+        <div class="mform-row" id="row-s2-empphone">
+          <label for="s2-empphone">Employer / Work Phone</label>
+          <input type="tel" id="s2-empphone" placeholder="+256 4XX XXX XXX">
+        </div>
+        <div class="mform-row" id="row-s2-purpose">
+          <label for="s2-purpose">Purpose of Loan *</label>
+          <textarea id="s2-purpose" rows="3" placeholder="Briefly describe what the loan will be used for"></textarea>
+          <div class="mform-error">Please briefly describe the loan purpose.</div>
+        </div>
+      </div>
+
+      <!-- ---- STAGE 3: Next of Kin ---- -->
+      <div class="modal-stage" id="modalStage3">
+        <div class="stage-title">
+          <span class="stage-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></span>
+          Next of Kin Details
+        </div>
+        <div class="mform-grid2">
+          <div class="mform-row" id="row-s3-nokfname">
+            <label for="s3-nokfname">First Name *</label>
+            <input type="text" id="s3-nokfname" placeholder="e.g. Joseph">
+            <div class="mform-error">Please enter the next of kin's first name.</div>
+          </div>
+          <div class="mform-row" id="row-s3-noklname">
+            <label for="s3-noklname">Last Name *</label>
+            <input type="text" id="s3-noklname" placeholder="e.g. Nakato">
+            <div class="mform-error">Please enter the next of kin's last name.</div>
+          </div>
+        </div>
+        <div class="mform-grid2">
+          <div class="mform-row" id="row-s3-nokrel">
+            <label for="s3-nokrel">Relationship *</label>
+            <select id="s3-nokrel">
+              <option value="">— Select —</option>
+              <option>Spouse</option><option>Parent</option><option>Sibling</option>
+              <option>Child</option><option>Friend</option><option>Other</option>
+            </select>
+            <div class="mform-error">Please select the relationship.</div>
+          </div>
+          <div class="mform-row" id="row-s3-nokphone">
+            <label for="s3-nokphone">Phone Number *</label>
+            <input type="tel" id="s3-nokphone" placeholder="+256 7XX XXX XXX">
+            <div class="mform-error">Please enter next of kin's phone number.</div>
+          </div>
+        </div>
+        <div class="mform-row" id="row-s3-nokaddress">
+          <label for="s3-nokaddress">Residential Address *</label>
+          <input type="text" id="s3-nokaddress" placeholder="e.g. Wakiso, Kampala">
+          <div class="mform-error">Please enter next of kin's address.</div>
+        </div>
+        <div class="mform-row" id="row-s3-noknin">
+          <label for="s3-noknin">Next of Kin NIN (optional)</label>
+          <input type="text" id="s3-noknin" placeholder="CM00000000XXXXX">
+        </div>
+        <div class="mform-row" id="row-s3-consent" style="margin-top:8px;">
+          <label style="display:flex;align-items:flex-start;gap:10px;font-size:0.85rem;font-weight:500;cursor:pointer;color:var(--text);">
+            <input type="checkbox" id="s3-consent" style="width:auto;margin-top:2px;accent-color:var(--purple);">
+            I confirm that the information provided is accurate and I consent to Hexagon Finance processing it for loan assessment purposes. *
+          </label>
+          <div class="mform-error" id="err-s3-consent">Please tick the consent checkbox to continue.</div>
+        </div>
+      </div>
+
+      <!-- ---- SUCCESS SCREEN ---- -->
+      <div class="modal-success" id="modalSuccess">
+        <div class="success-hex"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+        <h3>Application Submitted!</h3>
+        <p>Thank you for applying with Hexagon Finance. An advisor will contact you within <strong>one business day</strong> to confirm your application and next steps.</p>
+        <div class="app-ref" id="appRef">Ref: HF-000000</div>
+        <button class="btn btn-primary" id="modalDoneBtn">Done</button>
+      </div>
+
+    </div><!-- /modal-body -->
+
+    <!-- Footer nav -->
+    <div class="modal-footer" id="modalFooter">
+      <button class="btn-back" id="modalBackBtn" style="display:none;">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+      <div style="display:flex;gap:10px;margin-left:auto;">
+        <button class="btn btn-next" id="modalNextBtn">Continue</button>
+      </div>
+    </div>
+
+  </div><!-- /modal-box -->
+</div><!-- /modal-overlay -->
 
 <script>
 (function(){
@@ -1035,9 +1661,7 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
     nav.classList.toggle('scrolled', y > 30);
     backTop.classList.toggle('show', y > 600);
   });
-  backTop.addEventListener('click', function(){
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
+  backTop.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
 
   /* ---- Mobile nav ---- */
   var hamburger = document.getElementById('hamburger');
@@ -1047,71 +1671,65 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
     hamburger.setAttribute('aria-expanded', open);
   });
   navLinks.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){
-      navLinks.classList.remove('open');
-      hamburger.setAttribute('aria-expanded','false');
-    });
+    a.addEventListener('click', function(){ navLinks.classList.remove('open'); hamburger.setAttribute('aria-expanded','false'); });
   });
 
   /* ---- Theme toggle ---- */
-  var themeToggle = document.getElementById('themeToggle');
-  themeToggle.addEventListener('click', function(){
+  document.getElementById('themeToggle').addEventListener('click', function(){
     var html = document.documentElement;
-    var isDark = html.getAttribute('data-theme') === 'dark';
-    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    html.setAttribute('data-theme', html.getAttribute('data-theme')==='dark' ? 'light' : 'dark');
   });
 
   /* ---- Scroll reveal ---- */
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var revealEls = document.querySelectorAll('.reveal');
-  if(reduceMotion){
-    revealEls.forEach(function(el){ el.classList.add('in-view'); });
-  } else {
+  if(reduceMotion){ revealEls.forEach(function(el){ el.classList.add('in-view'); }); }
+  else{
     var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
-        }
-      });
-    }, {threshold:0.15});
+      entries.forEach(function(entry){ if(entry.isIntersecting){ entry.target.classList.add('in-view'); io.unobserve(entry.target); } });
+    },{threshold:0.15});
     revealEls.forEach(function(el){ io.observe(el); });
   }
+
+  /* ---- Hero background slider ---- */
+  var heroSlides = document.querySelectorAll('.hero-bg-slide');
+  var heroDots = document.querySelectorAll('.hero-slider-dot');
+  var heroCurrent = 0;
+  function goHeroSlide(idx){
+    heroSlides[heroCurrent].classList.remove('active');
+    heroDots[heroCurrent].classList.remove('active');
+    heroCurrent = (idx + heroSlides.length) % heroSlides.length;
+    heroSlides[heroCurrent].classList.add('active');
+    heroDots[heroCurrent].classList.add('active');
+  }
+  heroDots.forEach(function(dot){
+    dot.addEventListener('click', function(){ goHeroSlide(parseInt(dot.getAttribute('data-slide'),10)); });
+  });
+  if(!reduceMotion){ setInterval(function(){ goHeroSlide(heroCurrent+1); }, 5000); }
 
   /* ---- Animated counters ---- */
   var counters = document.querySelectorAll('.count');
   var counted = false;
   function animateCounters(){
-    if(counted) return;
-    counted = true;
+    if(counted) return; counted = true;
     counters.forEach(function(el){
-      var target = parseInt(el.getAttribute('data-target'), 10);
-      var prefix = el.getAttribute('data-prefix') || '';
-      var suffix = el.getAttribute('data-suffix') || '';
-      var start = null;
-      var duration = 1400;
+      var target = parseInt(el.getAttribute('data-target'),10);
+      var prefix = el.getAttribute('data-prefix')||'';
+      var suffix = el.getAttribute('data-suffix')||'';
+      var start = null, duration = 1400;
       function step(ts){
         if(!start) start = ts;
-        var progress = Math.min((ts - start) / duration, 1);
-        var val = Math.floor(progress * target);
-        el.textContent = prefix + val.toLocaleString() + suffix;
-        if(progress < 1) requestAnimationFrame(step);
+        var p = Math.min((ts-start)/duration,1);
+        el.textContent = prefix + Math.floor(p*target).toLocaleString() + suffix;
+        if(p<1) requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
     });
   }
-  var statsSection = document.getElementById('stats');
-  if(statsSection){
-    var statsIO = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          animateCounters();
-          statsIO.unobserve(entry.target);
-        }
-      });
-    }, {threshold:0.3});
-    statsIO.observe(statsSection);
-  }
+  var statsIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ animateCounters(); statsIO.unobserve(e.target); } });
+  },{threshold:0.3});
+  if(document.getElementById('stats')) statsIO.observe(document.getElementById('stats'));
 
   /* ---- Loan calculator ---- */
   var amountInput = document.getElementById('loanAmount');
@@ -1119,18 +1737,12 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
   var periodSelect = document.getElementById('loanPeriod');
   var monthlyVal = document.getElementById('monthlyVal');
   var totalVal = document.getElementById('totalVal');
-  var FLAT_RATE = 0.03;
-
-  function formatUGX(n){
-    return 'UGX ' + Math.round(n).toLocaleString('en-UG');
-  }
+  function formatUGX(n){ return 'UGX '+Math.round(n).toLocaleString('en-UG'); }
   function calc(){
-    var principal = parseInt(amountInput.value, 10);
-    var months = parseInt(periodSelect.value, 10);
-    amountVal.textContent = formatUGX(principal);
-    var total = principal + (principal * FLAT_RATE * months);
-    var monthly = total / months;
-    monthlyVal.textContent = formatUGX(monthly);
+    var p = parseInt(amountInput.value,10), m = parseInt(periodSelect.value,10);
+    amountVal.textContent = formatUGX(p);
+    var total = p + (p * 0.03 * m);
+    monthlyVal.textContent = formatUGX(total/m);
     totalVal.textContent = formatUGX(total);
   }
   amountInput.addEventListener('input', calc);
@@ -1141,26 +1753,16 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
   document.querySelectorAll('.faq-item').forEach(function(item){
     var btn = item.querySelector('.faq-q');
     var panel = item.querySelector('.faq-a');
-    function setHeight(){
-      panel.style.maxHeight = item.classList.contains('open') ? panel.scrollHeight + 'px' : '0px';
-    }
-    setHeight();
+    function setH(){ panel.style.maxHeight = item.classList.contains('open') ? panel.scrollHeight+'px' : '0px'; }
+    setH();
     btn.addEventListener('click', function(){
       var willOpen = !item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(function(other){
-        other.classList.remove('open');
-        other.querySelector('.faq-q').setAttribute('aria-expanded','false');
-        other.querySelector('.faq-a').style.maxHeight = '0px';
+      document.querySelectorAll('.faq-item').forEach(function(o){
+        o.classList.remove('open'); o.querySelector('.faq-q').setAttribute('aria-expanded','false'); o.querySelector('.faq-a').style.maxHeight='0px';
       });
-      if(willOpen){
-        item.classList.add('open');
-        btn.setAttribute('aria-expanded','true');
-        setHeight();
-      }
+      if(willOpen){ item.classList.add('open'); btn.setAttribute('aria-expanded','true'); setH(); }
     });
-    window.addEventListener('resize', function(){
-      if(item.classList.contains('open')) setHeight();
-    });
+    window.addEventListener('resize', function(){ if(item.classList.contains('open')) setH(); });
   });
 
   /* ---- Testimonial slider ---- */
@@ -1169,61 +1771,210 @@ footer{background:var(--charcoal);color:#D8D3E2;padding:72px 0 28px;}
   var dotsWrap = document.getElementById('testiDots');
   var current = 0;
   for(var i=0;i<slides.length;i++){
-    var dot = document.createElement('button');
-    dot.className = 'testi-dot' + (i===0 ? ' active' : '');
-    dot.setAttribute('aria-label', 'Go to testimonial ' + (i+1));
-    dot.addEventListener('click', (function(idx){ return function(){ goTo(idx); }; })(i));
-    dotsWrap.appendChild(dot);
+    (function(idx){
+      var dot = document.createElement('button');
+      dot.className = 'testi-dot'+(idx===0?' active':'');
+      dot.setAttribute('aria-label','Go to testimonial '+(idx+1));
+      dot.addEventListener('click', function(){ goTo(idx); });
+      dotsWrap.appendChild(dot);
+    })(i);
   }
   function goTo(idx){
-    current = (idx + slides.length) % slides.length;
-    slidesWrap.style.transform = 'translateX(-' + (current*100) + '%)';
-    dotsWrap.querySelectorAll('.testi-dot').forEach(function(d,i){
-      d.classList.toggle('active', i===current);
-    });
+    current = (idx+slides.length)%slides.length;
+    slidesWrap.style.transform = 'translateX(-'+(current*100)+'%)';
+    dotsWrap.querySelectorAll('.testi-dot').forEach(function(d,i){ d.classList.toggle('active',i===current); });
   }
   document.getElementById('testiPrev').addEventListener('click', function(){ goTo(current-1); });
   document.getElementById('testiNext').addEventListener('click', function(){ goTo(current+1); });
   var autoSlide = reduceMotion ? null : setInterval(function(){ goTo(current+1); }, 6000);
-  var testiWrap = document.querySelector('.testi-wrap');
-  testiWrap.addEventListener('mouseenter', function(){ if(autoSlide) clearInterval(autoSlide); });
-
-  /* swipe support */
+  document.querySelector('.testi-wrap').addEventListener('mouseenter', function(){ if(autoSlide) clearInterval(autoSlide); });
   var touchStartX = null;
   slidesWrap.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; });
   slidesWrap.addEventListener('touchend', function(e){
     if(touchStartX===null) return;
-    var delta = e.changedTouches[0].clientX - touchStartX;
-    if(Math.abs(delta) > 40){ delta < 0 ? goTo(current+1) : goTo(current-1); }
+    var d = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(d)>40){ d<0?goTo(current+1):goTo(current-1); }
     touchStartX = null;
   });
 
-  /* ---- Contact form (demo only, no backend) ---- */
-  var form = document.getElementById('contactForm');
+  /* ---- Contact form ---- */
+  var contactForm = document.getElementById('contactForm');
   var formMsg = document.getElementById('formMsg');
-  form.addEventListener('submit', function(e){
+  contactForm.addEventListener('submit', function(e){
     e.preventDefault();
     var name = document.getElementById('fname').value.trim();
     var phone = document.getElementById('fphone').value.trim();
     var email = document.getElementById('femail').value.trim();
-    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if(!name || !phone || !emailOk){
+    if(!name || !phone || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
       formMsg.textContent = 'Please fill in your name, phone number, and a valid email address.';
-      formMsg.className = 'form-msg show error';
-      return;
+      formMsg.className = 'form-msg show error'; return;
     }
-    formMsg.textContent = 'Thank you, ' + name + '. An advisor will reach out within one business day.';
+    formMsg.textContent = 'Thank you, '+name+'. An advisor will reach out within one business day.';
     formMsg.className = 'form-msg show success';
-    form.reset();
+    contactForm.reset();
   });
 
   var newsletterForm = document.getElementById('newsletterForm');
   newsletterForm.addEventListener('submit', function(e){
     e.preventDefault();
-    var input = newsletterForm.querySelector('input');
-    input.value = '';
-    input.placeholder = 'Subscribed ✓';
+    var inp = newsletterForm.querySelector('input');
+    inp.value = ''; inp.placeholder = 'Subscribed ✓';
   });
+
+  /* ============================================================ */
+  /* LOAN APPLICATION MODAL                                       */
+  /* ============================================================ */
+  var modal = document.getElementById('loanModal');
+  var modalNextBtn = document.getElementById('modalNextBtn');
+  var modalBackBtn = document.getElementById('modalBackBtn');
+  var modalClose = document.getElementById('modalClose');
+  var modalDoneBtn = document.getElementById('modalDoneBtn');
+  var modalFooter = document.getElementById('modalFooter');
+  var modalSuccess = document.getElementById('modalSuccess');
+  var currentStage = 1;
+  var totalStages = 3;
+
+  /* Open modal */
+  function openModal(presetProduct){
+    currentStage = 1;
+    renderStage();
+    if(presetProduct && document.getElementById('s1-product')){
+      document.getElementById('s1-product').value = presetProduct;
+    }
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Reset success
+    modalSuccess.classList.remove('active');
+    for(var s=1;s<=totalStages;s++){ document.getElementById('modalStage'+s).classList.remove('active'); }
+    document.getElementById('modalStage1').classList.add('active');
+    modalFooter.style.display = '';
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* Trigger buttons */
+  document.querySelectorAll('.open-modal-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){ openModal(btn.getAttribute('data-product')||''); });
+  });
+  document.getElementById('navApplyBtn').addEventListener('click', function(){ openModal(''); navLinks.classList.remove('open'); });
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
+  modalDoneBtn.addEventListener('click', closeModal);
+
+  /* Stepper rendering */
+  function renderStage(){
+    for(var s=1;s<=totalStages;s++){
+      var item = document.getElementById('stepItem'+s);
+      item.classList.remove('active','done');
+      if(s < currentStage) item.classList.add('done');
+      else if(s === currentStage) item.classList.add('active');
+    }
+    // Lines
+    for(var l=1;l<=totalStages-1;l++){
+      var line = document.getElementById('stepLine'+l);
+      if(line){ line.classList.toggle('done', currentStage > l); }
+    }
+    // Stages
+    for(var st=1;st<=totalStages;st++){
+      document.getElementById('modalStage'+st).classList.toggle('active', st===currentStage);
+    }
+    // Buttons
+    modalBackBtn.style.display = currentStage > 1 ? 'inline-flex' : 'none';
+    modalNextBtn.textContent = currentStage === totalStages ? 'Submit Application' : 'Continue';
+    modalNextBtn.className = 'btn '+(currentStage===totalStages ? 'btn-submit' : 'btn-next');
+
+    // Scroll modal to top
+    document.getElementById('modalBox').scrollTop = 0;
+  }
+
+  /* Validation helpers */
+  function clearErrors(stage){
+    document.querySelectorAll('#modalStage'+stage+' .mform-row').forEach(function(row){
+      row.classList.remove('has-error');
+    });
+    var consentErr = document.getElementById('err-s3-consent');
+    if(consentErr) consentErr.style.display = '';
+  }
+  function setError(rowId){ document.getElementById(rowId).classList.add('has-error'); }
+  function val(id){ return (document.getElementById(id)||{}).value || ''; }
+  function req(id, rowId){
+    if(!val(id).trim()){ setError(rowId); return false; } return true;
+  }
+
+  function validateStage(s){
+    clearErrors(s);
+    var ok = true;
+    if(s===1){
+      if(!req('s1-fname','row-s1-fname')) ok=false;
+      if(!req('s1-lname','row-s1-lname')) ok=false;
+      if(!req('s1-dob','row-s1-dob')) ok=false;
+      if(!val('s1-gender').trim()){ setError('row-s1-gender'); ok=false; }
+      if(!val('s1-phone').trim()){ setError('row-s1-phone'); ok=false; }
+      if(!req('s1-nin','row-s1-nin')) ok=false;
+      if(!req('s1-address','row-s1-address')) ok=false;
+      if(!val('s1-product').trim()){ setError('row-s1-product'); ok=false; }
+      if(!val('s1-amount').trim()){ setError('row-s1-amount'); ok=false; }
+    }
+    if(s===2){
+      if(!val('s2-emptype').trim()){ setError('row-s2-emptype'); ok=false; }
+      if(!req('s2-employer','row-s2-employer')) ok=false;
+      if(!req('s2-jobtitle','row-s2-jobtitle')) ok=false;
+      if(!val('s2-tenure').trim()){ setError('row-s2-tenure'); ok=false; }
+      if(!val('s2-income').trim()){ setError('row-s2-income'); ok=false; }
+      if(!req('s2-empaddress','row-s2-empaddress')) ok=false;
+      if(!document.getElementById('s2-purpose').value.trim()){ setError('row-s2-purpose'); ok=false; }
+    }
+    if(s===3){
+      if(!req('s3-nokfname','row-s3-nokfname')) ok=false;
+      if(!req('s3-noklname','row-s3-noklname')) ok=false;
+      if(!val('s3-nokrel').trim()){ setError('row-s3-nokrel'); ok=false; }
+      if(!val('s3-nokphone').trim()){ setError('row-s3-nokphone'); ok=false; }
+      if(!req('s3-nokaddress','row-s3-nokaddress')) ok=false;
+      if(!document.getElementById('s3-consent').checked){
+        document.getElementById('row-s3-consent').classList.add('has-error');
+        document.getElementById('err-s3-consent').style.display='block';
+        ok=false;
+      }
+    }
+    return ok;
+  }
+
+  /* Next / Submit */
+  modalNextBtn.addEventListener('click', function(){
+    if(!validateStage(currentStage)) return;
+    if(currentStage < totalStages){
+      currentStage++;
+      renderStage();
+    } else {
+      submitApplication();
+    }
+  });
+
+  /* Back */
+  modalBackBtn.addEventListener('click', function(){
+    if(currentStage > 1){ currentStage--; renderStage(); }
+  });
+
+  /* Submit */
+  function submitApplication(){
+    // Generate ref number
+    var ref = 'HF-' + Date.now().toString().slice(-6);
+    document.getElementById('appRef').textContent = 'Ref: ' + ref;
+    // Hide all stages
+    for(var s=1;s<=totalStages;s++){ document.getElementById('modalStage'+s).classList.remove('active'); }
+    modalSuccess.classList.add('active');
+    modalFooter.style.display = 'none';
+    // Mark all steps done
+    for(var st=1;st<=totalStages;st++){
+      var item = document.getElementById('stepItem'+st);
+      item.classList.remove('active');
+      item.classList.add('done');
+    }
+    document.getElementById('modalBox').scrollTop = 0;
+  }
 
 })();
 </script>
